@@ -2,3 +2,98 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    background-color: rgb(92, 23, 23);
+
+    .pokedex-body {
+        width: 100%;
+        box-sizing: border-box;
+        .pokedex-left-side {
+            position: absolute;
+            bottom: 2%;
+            top: 2%;
+            left: 2%;
+            width: 45.5%;
+            background-color: rgb(255, 70, 70);
+            border-radius: 10px 0 0 10px;
+
+            .header-ls {
+
+                .back-rectangle {
+                    width: 100%;
+                    height: 72px;
+                    background-color: #911212;
+                }
+
+                .lower-triangle {
+                    position: absolute;
+                    border-bottom: 80px solid #911212;
+                    border-left: 150px solid transparent; 
+                    transform: rotate(180deg);
+                    //transform: skew(180deg);
+                    left: 40%;
+                }
+
+                .rest-rectangle {
+                    width: 40%;
+                    height: 80px;
+                    background-color: #911212;
+                }
+            }
+
+            .large-circle {
+                
+            }
+        }
+
+        .pokedex-tube {
+            position: absolute;
+            bottom: 2%;
+            top: 13.5%;
+            left: 47.5%;
+            width: 5%;
+            background: linear-gradient(to left, rgb(151, 23, 23), rgb(255, 44, 44), rgb(151, 23, 23));
+            box-shadow: 3px 0px 4px -1px rgb(61, 16, 16), 3px 0px 4px -1px rgb(61, 16, 16), -4px 0px 4px -1px rgb(61, 16, 16);
+            z-index: 9999;
+
+            .tube-spinner {
+                width: 100%;
+                height: 70px;
+                border-radius: 3px;
+                background: linear-gradient(to left, rgb(68, 10, 10), rgb(255, 44, 44), rgb(68, 10, 10));
+
+                &.up {
+                    margin-top: -73px;
+                    box-shadow: 0px 2px 3px 1px #000000;
+                }
+                &.middle {
+                    margin-top: 90px;
+                    box-shadow: 0px 2px 3px 1px #000000, 0px -2px 3px 1px #000000;
+                }
+                &.down {
+                    position: absolute;
+                    bottom: -0.5%;
+                    box-shadow: 0px -2px 3px 1px #000000, 0px 1px 3px 1px rgb(92, 23, 23);
+                }
+            }
+        }
+
+        .pokedex-right-side {
+            position: absolute;
+            bottom: 2%;
+            top: 14%;
+            right: 2%;
+            width: 45.5%;
+            background-color: rgb(255, 70, 70);
+            border-radius: 0 3px 3px 0;
+        }
+    }
+}
+
+img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    object-position: center;
+}

@@ -5,15 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
+    <link rel="stylesheet" href="css/pokedex-styles.css">
 </head>
 <body>
     <div id="app">
-        <h1 v-text="title"></h1>
-        <table>
+        <div class="pokedex-body">
+            <div class="pokedex-left-side">
+                <div class="header-ls">
+                    <div class="back-rectangle"></div>
+                    <div class="lower-triangle"></div>
+                    <div class="rest-rectangle"></div>
+                    
+                    <div class="large-circle"></div>
+                </div>
+            </div>
+            <div class="pokedex-tube">
+                <div class="tube-spinner up"></div>
+                <div class="tube-spinner middle"></div>
+                <div class="tube-spinner down"></div>
+            </div>
+            <div class="pokedex-right-side">
+            </div>
+        </div>
+        <!-- <table>
             <tr v-for="pokem in pokemonList">
-                <td v-text="pokem.name"></td>
+                <td>
+                    <img :src="pokem.sprites.other.dream_world.front_default">
+                    <h6  v-text="pokem.name"></h6>
+                </td>
             </tr>
-        </table>
+        </table> -->
 
     </div>
     

@@ -1,7 +1,6 @@
 const app = new Vue({
     el: '#app',
     data: {
-        title: 'Pokedex',
         pokemonList: [],
     },
     methods: {
@@ -9,9 +8,16 @@ const app = new Vue({
             const url = 'https://pokeapi.co/api/v2/pokemon';
 
             fetch(url).then ( (response) => response.json())
-            .then( (data) => {
-                this.pokemonList = data.results;
-                console.log(this.pokemonList);
+            .then( (pokemons) => {
+                
+                pokemons.results.map( (pokemon) => {
+                    const data_url = 'https://pokeapi.co/api/v2/pokemon/'+pokemon.name;
+
+                    fetch(data_url).then (response => response.json()).then ( (pokedet) => {
+                        console.log(pokedet);
+                        this.pokemonList.push(pokedet);
+                    })
+                })
             });
         }
     },
