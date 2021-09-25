@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +7,7 @@
 
 body {
     background-color: rgb(92, 23, 23);
+    font-family: 'Play', sans-serif;
 
     .pokedex-body {
         width: 100%;
@@ -132,6 +135,25 @@ body {
                         top: 17%;
                         background: linear-gradient(130deg, #cac9c9 0%, #fff, rgb(235, 235, 235));
                         box-shadow: #1b1b1b 0 0 5px 2px inset;
+
+                        .screen-pokemon-img {
+                            position: absolute;
+                            width: 120px;
+                            height: 220px;
+                            left: 5%;
+                            top: -10%;
+                        }
+
+                        .description-screen {
+                            position: absolute;
+                            right: 10%;
+                            top: 10%;
+
+                            table {
+                                width: 150px;
+                                margin-top: 10px;
+                            }
+                        }
                     }
 
                     .inner-circle {

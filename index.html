@@ -33,7 +33,28 @@
                     <div class="pokedex-screen">
                         <div class="inner-circle first"></div>
                         <div class="inner-circle second"></div>
-                        <div class="inner-screen"></div>
+
+                        <div class="inner-screen">
+                            <img :src="pokemon.sprites.front_default" class="screen-pokemon-img">    
+                            <div class="description-screen">
+                                <h3 v-text="pokemon.name.toUpperCase()"></h3>
+                                <table>
+                                    <tr>
+                                        <td>Experience</td>
+                                        <td align="right"> <label v-text="pokemon.base_experience"></label> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Height</td>
+                                        <td align="right"> <label v-text="pokemon.height"></label> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Weight</td>
+                                        <td align="right"> <label v-text="pokemon.weight"></label> </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
                         <div class="inner-circle bottom"></div>
                         <div class="inner-line one"></div>
                         <div class="inner-line two"></div>
@@ -55,7 +76,7 @@
                         <div class="arrow-right"></div>
                     </div>
 
-                    <input type="text" class="input-container">
+                    <input type="text" @keyup.enter="obtenerPokemon(searchPokemon)" class="input-container" v-model="searchPokemon">
                 </div>
             </div>
             <div class="pokedex-tube">
@@ -66,15 +87,6 @@
             <div class="pokedex-right-side">
             </div>
         </div>
-        <!-- <table>
-            <tr v-for="pokem in pokemonList">
-                <td>
-                    <img :src="pokem.sprites.other.dream_world.front_default">
-                    <h6  v-text="pokem.name"></h6>
-                </td>
-            </tr>
-        </table> -->
-
     </div>
     
     <script src="js/vue.js"></script>
