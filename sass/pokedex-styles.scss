@@ -11,10 +11,11 @@ body {
         box-sizing: border-box;
         .pokedex-left-side {
             position: absolute;
+            box-shadow: -2px 2px 4px 1px #290707;
             bottom: 2%;
             top: 2%;
-            left: 2%;
-            width: 45.5%;
+            left: 8%;
+            width: 40%;
             background-color: rgb(255, 70, 70);
             border-radius: 10px 0 0 10px;
 
@@ -23,27 +24,276 @@ body {
                 .back-rectangle {
                     width: 100%;
                     height: 72px;
+                    border-top-left-radius: 4px;
                     background-color: #911212;
+                    position: relative;
+                    border-bottom: 5px inset rgb(68, 22, 22);
                 }
 
                 .lower-triangle {
                     position: absolute;
-                    border-bottom: 80px solid #911212;
-                    border-left: 150px solid transparent; 
+                    border-bottom: 60px solid #911212;
+                    border-left: 120px solid transparent; 
                     transform: rotate(180deg);
-                    //transform: skew(180deg);
-                    left: 40%;
+                    left: 30%;
+                    top: 12%;
+                    z-index: 1;
+
+                    &.shadow-lt {
+                        position: absolute;
+                        background-color: rgb(68, 22, 22);
+                        top: 12.9%;
+                        border-bottom: 60px solid rgb(255, 70, 70);
+                        border-left: 120px solid transparent; 
+                        transform: rotate(0);
+                        z-index: 0;
+                    }
                 }
 
                 .rest-rectangle {
-                    width: 40%;
+                    position: absolute;
+                    width: 30%;
                     height: 80px;
+                    top: 8.7%;
                     background-color: #911212;
+                    z-index: 1;
+                    border-bottom: 5px inset rgb(68, 22, 22);
+                }
+
+                .large-circle {
+                
+                    .principal-circle {
+                        width: 90px;
+                        height: 90px;
+                        background-color: #fff;
+                        border-radius: 50%;
+                        box-shadow: 0 0 4px 1px #242424;
+                        position: absolute;
+                        top: 4%;
+                        left: 5%;
+                        z-index: 999;
+    
+                        .inner-circle {
+                            position: absolute;
+                            width: 80px;
+                            height: 80px;
+                            background-image: radial-gradient(rgb(225, 254, 255) 14%, rgb(140, 225, 247), #ffffff);
+                            border-radius: 50%;
+                            top: 7%;
+                            left: 5%;
+                            box-shadow: #242424 0 0 15px -4px inset;
+                        }
+                    }
+                }
+    
+                .small-circle {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    position: absolute;
+                    box-shadow: 0 0 3px 0 #1b1b1b inset;
+                    z-index: 999;
+    
+                    &.first {
+                        top: 3.5%;
+                        left: 25%;
+                        background-image: radial-gradient(rgb(255, 191, 191) 14%, rgb(255, 36, 65), #ffffff);
+                    }
+                    &.second {
+                        top: 3.5%;
+                        left: 32%;
+                        background-image: radial-gradient(rgb(253, 252, 208) 14%, rgb(250, 246, 20), #ffffff);
+                    }
+                    &.third {
+                        top: 3.5%;
+                        left: 39%;
+                        background-image: radial-gradient(rgb(209, 255, 197) 20%, rgb(74, 250, 20), #ffffff);
+                    }
+                }
+            }
+        
+            .body-ls {
+
+                .pokedex-screen {
+                    width: 80%;
+                    height: 50%;
+                    background-color: rgb(152, 177, 187);
+                    position: absolute;
+                    top: 26%;
+                    left: 9%;
+                    border-radius: 3px 3px 3px 50px;
+                    box-shadow: 0 0 3px 4px #555454 inset;
+
+                    .inner-screen {
+                        width: 80%;
+                        height: 65%;
+                        position: absolute;
+                        left: 10%;
+                        top: 17%;
+                        background: linear-gradient(130deg, #cac9c9 0%, #fff, rgb(235, 235, 235));
+                        box-shadow: #1b1b1b 0 0 5px 2px inset;
+                    }
+
+                    .inner-circle {
+                        position: absolute;
+                        top: 7%;
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 50%;
+                        background-color: #df2f2f;
+                        box-shadow: 0 0 2px 1px #242424 inset;
+
+                        &.first {
+                            left: 43%;
+                        }
+                        &.second {
+                            right: 43%;
+                        }
+                        
+                        &.bottom {
+                            width: 28px;
+                            height: 28px;
+                            bottom: 2%;
+                            left: 10%;
+                            top: 86.5%;
+                        }
+                    }
+
+                    .inner-line {
+                        width: 10%;
+                        height: 0.01rem;
+                        background-color: #383838;
+                        position: absolute;
+                        right: 10%;
+                        box-shadow: 0 0 2px 1px #555454;
+                        
+                        &.one {
+                            bottom: 7%;
+                        }
+                        &.two {
+                            bottom: 9.2%;
+                        }
+                        &.three {
+                            bottom: 11.2%;
+                        }
+                        &.four {
+                            bottom: 13.5%;
+                        }
+                    }
                 }
             }
 
-            .large-circle {
+            .footer-ls {
                 
+                .circle {
+                    background-color: #242424;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    bottom: 13%;
+                    left: 9%;
+                    position: absolute;
+                }
+
+                .button-bar {
+                    width: 55px;
+                    height: 13px;
+                    position: absolute;
+                    bottom: 16%;
+                    border-radius: 10px;
+                    box-shadow: 1px 1px 4px 1px #383838;
+
+                    &.first {
+                        left: 22%;
+                        background-color: #11ff4d;
+                    }
+                    &.second {
+                        left: 35%;
+                        background-color: #ff9011;
+                    }
+                }
+
+                .btn-vertical {
+                    position: absolute;
+                    bottom: 3%;
+                    right: 19.2%;
+                    width: 35px;
+                    height: 112px;
+                    background-color: #222222;
+                    border-radius: 5px;
+                    box-shadow: 0 0 3px 1px #1f1f1f;
+                    cursor: pointer;
+
+                    .arrow-up {
+                        background-color: #222222;
+                        position: absolute;
+                        border-bottom: 20px solid #161616;
+                        border-left: 10px solid transparent; 
+                        border-right: 10px solid transparent;
+                        left: 24%;
+                        top: 4%;
+                    }
+
+                    .arrow-down {
+                        background-color: #222222;
+                        border-top: 20px solid #161616;
+                        border-left: 10px solid transparent; 
+                        border-right: 10px solid transparent;
+                        position: absolute;
+                        left: 24%;
+                        bottom: 5%;
+                    }
+                }
+                .btn-horizontal {
+                    position: absolute;
+                    bottom: 9.5%;
+                    right: 12%;
+                    width: 112px;
+                    height: 35px;
+                    background-color: #222222;
+                    border-radius: 5px;
+                    box-shadow: -1px 1px 3px 1px #1f1f1f;
+                    cursor: pointer;
+
+                    .arrow-left {
+                        background-color: #222222;
+                        border-right: 20px solid #161616;
+                        border-top: 10px solid transparent; 
+                        border-bottom: 10px solid transparent;
+                        position: absolute;
+                        left: 5%;
+                        bottom: 18%;
+                    }
+
+                    .arrow-right {
+                        background-color: #222222;
+                        border-left: 20px solid #161616;
+                        border-top: 10px solid transparent; 
+                        border-bottom: 10px solid transparent;
+                        position: absolute;
+                        right: 5%;
+                        bottom: 18%;
+                    }
+                }
+
+                .input-container {
+                    width: 50%;
+                    height: 40px;
+                    background-color: #fbff00;
+                    border: 1px solid #fbff00;
+                    position: absolute;
+                    bottom: 3%;
+                    left: 9%;
+                    border-radius: 7px;
+                    text-align: center;
+                    transition: all .3s;
+                    box-shadow: 1px 1px 3px 1px #555454;
+
+                    &:focus {
+                        outline: none;
+                        border: 1px solid #3d3b36;
+                    }
+                }
             }
         }
 
@@ -83,8 +333,8 @@ body {
             position: absolute;
             bottom: 2%;
             top: 14%;
-            right: 2%;
-            width: 45.5%;
+            right: 8%;
+            width: 40%;
             background-color: rgb(255, 70, 70);
             border-radius: 0 3px 3px 0;
         }
