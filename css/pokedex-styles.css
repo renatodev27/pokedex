@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gemunu+Libre&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +6,7 @@
 
 body {
   background-color: #5c1717;
-  font-family: "Rajdhani", sans-serif;
+  font-family: "Gemunu Libre", sans-serif;
 }
 body .pokedex-body {
   width: 100%;

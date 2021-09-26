@@ -1,3 +1,5 @@
+let synth = window.speechSynthesis;
+
 const app = new Vue({
     el: '#app',
     data: {
@@ -6,6 +8,9 @@ const app = new Vue({
         searchPokemon: '',
         isLoading: false,
         screenOf: true,
+        voices: [],
+        choosen_voice: '',
+
     },
     methods: {
         listarPokemones() {
@@ -24,6 +29,29 @@ const app = new Vue({
                 })
             });
         },
+        populateVoiceList() {
+            this.voices = synth.getVoices();
+            console.log(this.voices);
+
+            this.voices.map( (voice) => {
+                if (voice.voiceURI === 'Google UK English Female') {
+                    this.choosen_voice = voice.name;
+                }
+            });
+
+            console.log(this.choosen_voice);
+        },
+        functionWelcomeTalk(text){
+            let utterance = new SpeechSynthesisUtterance(text);
+            utterance.pitch = 0.5;
+
+            for (let i = 0; i < this.voices.length; i++) {
+
+                if (this.voices[i].name === this.choosen_voice) utterance.voice = this.voices[i];
+            }
+
+            synth.speak(utterance);
+        },
         obtenerPokemon(pokemonName) {
             const url = 'https://pokeapi.co/api/v2/pokemon/'+pokemonName;
             this.screenOf = false;
@@ -32,6 +60,9 @@ const app = new Vue({
             fetch(url).then( (response) => response.json())
             .then( (data) => {
                 this.pokemon = data;
+                this.functionWelcomeTalk(`
+                    A ${this.pokemon.name} has been found;
+                `)
                 if (this.searchPokemon != '') this.searchPokemon = '';
                 this.isLoading = false;
             })
@@ -39,10 +70,14 @@ const app = new Vue({
                 this.pokemon = [];
                 this.isLoading = false;
                 this.screenOf = true;
+                this.functionWelcomeTalk('No pokémon found');
             });
         }
     },
     mounted() {
-        //this.obtenerPokemon(this.searchPokemon);
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = () => this.populateVoiceList();
+        }
     }
 })
+
