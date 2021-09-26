@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 * {
     margin: 0;
@@ -6,12 +7,13 @@
 }
 
 body {
-    background-color: rgb(92, 23, 23);
-    font-family: 'Gemunu Libre', sans-serif;
+    background-color: rgb(39, 11, 11);
+    font-family: 'Press Start 2P', cursive;
 
     .pokedex-body {
         width: 100%;
         box-sizing: border-box;
+
         .pokedex-left-side {
             position: absolute;
             box-shadow: -2px 2px 4px 1px #290707;
@@ -19,7 +21,7 @@ body {
             top: 2%;
             left: 8%;
             width: 40%;
-            background-color: rgb(255, 70, 70);
+            background: linear-gradient(45deg, rgb(228, 10, 39), rgb(255, 51, 78));
             border-radius: 10px 0 0 10px;
 
             .header-ls {
@@ -28,14 +30,15 @@ body {
                     width: 100%;
                     height: 72px;
                     border-top-left-radius: 4px;
-                    background-color: #911212;
+                    background: linear-gradient(45deg, rgb(228, 10, 39), rgb(255, 51, 78) 6%);
+                    //background: rgb(255, 51, 78);
                     position: relative;
                     border-bottom: 5px inset rgb(68, 22, 22);
                 }
 
                 .lower-triangle {
                     position: absolute;
-                    border-bottom: 60px solid #911212;
+                    border-bottom: 60px solid rgb(255, 51, 78);
                     border-left: 120px solid transparent; 
                     transform: rotate(180deg);
                     left: 30%;
@@ -46,7 +49,7 @@ body {
                         position: absolute;
                         background-color: rgb(68, 22, 22);
                         top: 12.9%;
-                        border-bottom: 60px solid rgb(255, 70, 70);
+                        border-bottom: 60px solid rgb(247, 36, 64);
                         border-left: 120px solid transparent; 
                         transform: rotate(0);
                         z-index: 0;
@@ -58,7 +61,7 @@ body {
                     width: 30%;
                     height: 80px;
                     top: 8.7%;
-                    background-color: #911212;
+                    background: linear-gradient(45deg, rgb(228, 10, 39), rgb(255, 51, 78) 50%);
                     z-index: 1;
                     border-bottom: 5px inset rgb(68, 22, 22);
                 }
@@ -145,125 +148,32 @@ body {
                             transition: all .3s;
                         }
 
-                        .empty-pokemon-img {
-                            object-fit: fill;
-                            object-position: center;
-                            width: 60%;
-                            height: 80%;
-                            left: 20%;
-                            top: 10%;
-                            position: absolute;
-                        }
+                        .principal-pokemon-img-container {
+                            width: 100%;
+                            height: auto;
+                            margin: 0 auto;
 
-                        .screen-pokemon-img {
-                            position: absolute;
-                            width: 120px;
-                            height: 220px;
-                            left: 5%;
-                            top: -10%;
+                            .screen-pokemon-img {
+                                position: absolute;
+                                width: 150px;
+                                height: 150px;
+                                justify-content: center;
+                                left: 30%;
+                            }
                         }
 
                         .description-screen {
                             position: absolute;
-                            right: 10%;
-                            top: 10%;
+                            bottom: 1%;
 
                             table {
-                                width: 150px;
-                                margin-top: 10px;
+                                width: 95%;
+                                margin: 10px auto;
+
+                                label {
+                                    font-size: 0.6rem;;
+                                }
                             }
-                        }
-
-                        .item{ 
-                            position: absolute;
-                            margin: auto;
-                            left: 0;
-                            right: 0;
-                            top:0;
-                            bottom:0;
-                            animation:spin .9s linear infinite;
-                        }
-                        
-                        .ball{
-                          border-radius: 50%;
-                          width: 40px;
-                          height: 40px;
-                          border: 2px solid #1d1d1b; 
-                          z-index: 100;
-                          display: block;
-                          margin: auto;
-                          left: 0;
-                          right: 0;
-                          top: 0;
-                          bottom:0;  
-                          position: absolute;
-                          background-color: red;
-                          z-index: 0;
-                        }
-                        
-                        .half-ball{
-                          margin: auto;
-                          left: 0;
-                          right: 0;
-                          top: 20px;
-                          bottom:0;
-                          z-index: 0;
-                          position: absolute;
-                          background-color: white;
-                          border-radius: 0 0 100px 100px;
-                          width: 40px;
-                          height: 20px;
-                        }
-                        
-                        .horizon{
-                          position: absolute;
-                          margin: auto;
-                          left: 0;
-                          right: 0;
-                          top: 1%;
-                          bottom:0;    
-                          margin-top: auto;
-                          border-radius: 0px;
-                          width: 42px;
-                          height: 9px;
-                          background-color: #1d1d1b;
-                          z-index: 3;
-                        }
-                        
-                        .big-button{
-                          z-index: 4;
-                          margin: auto;
-                          left: 0;
-                          right: 0;
-                          top:0;
-                          bottom:0;
-                          border-radius: 50%;
-                          border: 2px solid #1d1d1b;
-                          position: absolute;
-                          height: 13px;
-                          width: 13px; 
-                          background-color: white;
-                        }
-                        
-                        .small-button{
-                          z-index: 5;
-                          margin: auto;
-                          left: 0;
-                          right: 0;
-                          top:0;
-                          bottom:0;
-                          border-radius: 50%;
-                          border: 2px solid #1d1d1b;
-                          position: absolute;
-                          height: 5px;
-                          width: 5px; 
-                        }
-
-                        @keyframes spin { 
-                            100% { 
-                                -webkit-transform: rotate(360deg); 
-                                transform:rotate(360deg); 
-                            } 
                         }
                     }
 
@@ -421,6 +331,9 @@ body {
                     text-align: center;
                     transition: all .3s;
                     box-shadow: 1px 1px 3px 1px #555454;
+                    font-family: 'Press Start 2P', cursive;
+                    font-size: 0.55rem;
+                    color: #242424;
 
                     &:focus {
                         outline: none;
@@ -465,13 +378,354 @@ body {
         .pokedex-right-side {
             position: absolute;
             bottom: 2%;
-            top: 14%;
+            top: 13.7%;
             right: 8%;
             width: 40%;
-            background-color: rgb(255, 70, 70);
+            background: linear-gradient(45deg, rgb(255, 51, 78) 20%, rgb(228, 10, 39) 50%);
             border-radius: 0 3px 3px 0;
+            border-top: 4px solid #331717;
+            box-shadow: 2px 2px 4px 1px #290707;
+
+            .header-rs {
+
+                .tirangle {
+                    background-color: rgb(39, 11, 11);
+                    //border-bottom: 50px solid rgb(255, 70, 70);
+                    border-bottom: 50px solid transparent;
+                    border-left: 55px solid transparent;
+                    border-right: 80px solid transparent;
+                    position: absolute;
+                    left: 40%;
+                    top: -3.5%;
+                    transform: rotate(28deg);
+                    box-shadow: 2px 2px 1px 1px #331717, 2px -7px 1px 1px rgb(39, 11, 11);
+                }
+
+                .rectangle {
+                    background-color: rgb(39, 11, 11);
+                    width: 39%;
+                    border-bottom-left-radius: 4px;
+                    height: 72px;
+                    right: 0;
+                    position: absolute;
+                    top: -2.2%;
+                    border-bottom: 4px solid #331717;
+                    box-shadow: 4px -6px 3px 3px rgb(39, 11, 11);
+                }
+            }
+
+            .body-rs {
+
+                .rs-screen {
+                    width: 85%;
+                    border-radius: 5px;
+                    height: 160px;
+                    background-color: #e0e0e0;
+                    position: absolute;
+                    top: 17%;
+                    left: 0;
+                    right: 0;
+                    margin: 0 auto;
+                    box-shadow: 0 0 5px 1px #000000 inset, 0 0 4px 1px #331717;
+
+                    .inner-screen {
+                        position: absolute;
+                        width: 98%;
+                        height: 145px;
+                        background: radial-gradient(rgb(228, 228, 228) 0%, #ffffff, rgb(223, 222, 222));
+                        border-radius: 5px;
+                        top:5%;
+                        left: 1%;
+                        box-shadow: 0 0 5px 1px #000000;
+
+                        ::-webkit-scrollbar {
+                            width: 8px;
+                        }
+                        ::-webkit-scrollbar-track {
+                            background: transparent;
+                            border-left: 4px solid transparent;
+                            border-right: 3.5px solid transparent;
+                            border-radius: 4px;
+                            box-shadow: inset 0 0 5px #acacacee;
+                        }
+                        ::-webkit-scrollbar-thumb {
+                            border-radius: 10px;
+                            background-color: #98aad1d8;
+                        }
+
+                        .pokemon-stats {
+                            width: 95%;
+                            font-size: 0.75rem;
+                            margin: 5px auto;
+
+                            .hp-text-content, .attack-text-content {
+                                display: flex; 
+                                justify-content: space-between;
+                            }
+
+                            .attack-text-content {
+                                div:first-child { margin-top: 3px; }
+                            }
+
+                            .type-text-content {
+                                margin-top: 5px;
+                                display: flex;
+                                font-size: 0.55rem;
+
+                                .pokemon-type-badge {
+                                    padding: 4px;
+                                    color: #fff;
+                                    background-color: #1b1b1b;
+                                    list-style: none;
+                                    margin-right: 3px;
+                                    border-radius: 5px;
+                                }
+                            }
+
+                            .pokemon-hp-bar {
+                                height: 0.20rem;
+                                border-radius: 10px;
+                                background-color: #000000;
+                            }
+                        }
+
+                        .pokemons-list {
+                            margin-top: 1px;
+                            font-size: .6rem;
+                            max-height: 143px;
+                            overflow-y: scroll;
+                            overflow-x: hidden;
+                            
+                            ul {
+                                list-style: none;
+
+                                .pokemon-table-img {
+                                    width: 60px;
+                                    height: 50px;
+                                    padding:0;
+                                    margin:0;
+                                    object-fit: contain;
+                                    object-position: center;
+                                }
+                                
+                                a { 
+                                    color: rgb(48, 48, 48); 
+                                    text-decoration: none; 
+                                    display: flex;
+
+                                    span { 
+                                        margin-top: 20px;
+                                        margin-left: 10px;
+                                        margin-right: 10px;
+                                    }
+
+                                    &:hover {
+                                        background-color: #ffdb11;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .rs-buttons {
+
+                    .buttons-table {
+                        width:85%;
+                        position: absolute;
+                        bottom: 32%;
+                        right: 0;
+                        left: 0;
+                        margin: 0 auto;
+                        border-radius: 5px;
+
+                        tr {
+
+                            &:first-child {
+                                td {
+                                    background-color: #1194ff;
+                                    box-shadow: 0px 0px 3px 2px rgb(18, 34, 44);
+                                    
+                                    &:first-child { border-top-left-radius: 3px; }
+                                    &:last-child { border-top-right-radius: 3px; }
+                                }
+                            }
+
+                            &:last-child {
+                                td {
+                                    background-color: #1194ff;
+                                    box-shadow: 0px 0px 3px 2px rgb(18, 34, 44);
+
+                                    &:first-child { border-bottom-left-radius: 3px; }
+                                    &:last-child { border-bottom-right-radius: 3px; }
+                                }
+                            }
+                        }
+
+                        .table-button {
+                            width: 100%;
+                            height: 40px;
+                        }
+                    }
+
+                    .bottom-tb-btn {
+                        background-color: #1d1d1b;
+                        width: 70px;
+                        height: 15px;
+                        bottom: 28%;
+                        border-radius: 5px;
+                        position: absolute;
+
+                        &.one { right: 8%; }
+                        &.two { right: 25%; }
+                    }
+
+                    .white-btn {
+                        position: absolute;
+                        background-color: #fff;
+                        width: 50px;
+                        height: 50px;
+                        bottom: 18%;
+                        box-shadow: 0 0 3px 1px #1d1d1b inset, 0 0 1px 2px #691e1e;
+
+                        &.one{ 
+                            left: 7.5%;
+                            border-top-left-radius: 2px;
+                            border-bottom-left-radius: 2px;
+                        }
+                        &.two{ 
+                            left: 16.6%;
+                            border-top-right-radius: 2px;
+                            border-bottom-right-radius: 2px;
+                        }
+                    }
+
+                    .yellow-button {
+                        background: radial-gradient(#f8f552 10%, #ffc400, );
+                        position: absolute;
+                        width: 50px;
+                        height: 50px;
+                        bottom: 16%;
+                        box-shadow: 0 0 2px 2px #65661e inset;
+                        border-radius: 50%;
+                        right: 10%;
+                    }
+                }
+            }
+
+            .footer-rs {
+                
+                .result-screen {
+                    background-color: #161616;
+                    width: 170px;
+                    height: 45px;
+                    border-radius: 3px;
+                    bottom: 4%;
+                    position: absolute;
+                    box-shadow: 0 0 4px 1px #555454 inset, 0 0 2px 1px rgb(71, 71, 71);
+
+                    &.height { left: 15%; }
+                    &.weight { right: 15%; }
+                    label { font-size: 0.6rem; }
+                    h4 { margin-top: 5px; }
+                    color: #fff;
+                    text-align: center;
+                }
+            }
         }
     }
+}
+
+.item{ 
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top:0;
+    bottom:0;
+    animation:spin .9s linear infinite;
+}
+
+.ball{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #1d1d1b; 
+  z-index: 100;
+  display: block;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom:0;  
+  position: absolute;
+  background-color: red;
+  z-index: 0;
+}
+
+.half-ball{
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 20px;
+  bottom:0;
+  z-index: 0;
+  position: absolute;
+  background-color: white;
+  border-radius: 0 0 100px 100px;
+  width: 40px;
+  height: 20px;
+}
+
+.horizon{
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 1%;
+  bottom:0;    
+  margin-top: auto;
+  border-radius: 0px;
+  width: 42px;
+  height: 9px;
+  background-color: #1d1d1b;
+  z-index: 3;
+}
+
+.big-button{
+  z-index: 4;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top:0;
+  bottom:0;
+  border-radius: 50%;
+  border: 2px solid #1d1d1b;
+  position: absolute;
+  height: 13px;
+  width: 13px; 
+  background-color: white;
+}
+
+.small-button{
+  z-index: 5;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top:0;
+  bottom:0;
+  border-radius: 50%;
+  border: 2px solid #1d1d1b;
+  position: absolute;
+  height: 5px;
+  width: 5px; 
+}
+
+@keyframes spin { 
+    100% { 
+        -webkit-transform: rotate(360deg); 
+        transform:rotate(360deg); 
+    } 
 }
 
 img {
