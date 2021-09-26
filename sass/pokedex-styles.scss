@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap');
 
 * {
     margin: 0;
@@ -7,7 +7,7 @@
 
 body {
     background-color: rgb(92, 23, 23);
-    font-family: 'Play', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
 
     .pokedex-body {
         width: 100%;
@@ -133,8 +133,27 @@ body {
                         position: absolute;
                         left: 10%;
                         top: 17%;
-                        background: linear-gradient(130deg, #cac9c9 0%, #fff, rgb(235, 235, 235));
-                        box-shadow: #1b1b1b 0 0 5px 2px inset;
+                        
+                        &.on {
+                            background: linear-gradient(130deg, #cac9c9 0%, #fff, rgb(235, 235, 235));
+                            box-shadow: #1b1b1b 0 0 5px 2px inset;
+                            transition: all .3s;
+                        }
+                        &.off {
+                            background-color: #424242;
+                            box-shadow: rgb(0, 0, 0) 0 0 5px 2px inset;
+                            transition: all .3s;
+                        }
+
+                        .empty-pokemon-img {
+                            object-fit: fill;
+                            object-position: center;
+                            width: 60%;
+                            height: 80%;
+                            left: 20%;
+                            top: 10%;
+                            position: absolute;
+                        }
 
                         .screen-pokemon-img {
                             position: absolute;
@@ -153,6 +172,98 @@ body {
                                 width: 150px;
                                 margin-top: 10px;
                             }
+                        }
+
+                        .item{ 
+                            position: absolute;
+                            margin: auto;
+                            left: 0;
+                            right: 0;
+                            top:0;
+                            bottom:0;
+                            animation:spin .9s linear infinite;
+                        }
+                        
+                        .ball{
+                          border-radius: 50%;
+                          width: 40px;
+                          height: 40px;
+                          border: 2px solid #1d1d1b; 
+                          z-index: 100;
+                          display: block;
+                          margin: auto;
+                          left: 0;
+                          right: 0;
+                          top: 0;
+                          bottom:0;  
+                          position: absolute;
+                          background-color: red;
+                          z-index: 0;
+                        }
+                        
+                        .half-ball{
+                          margin: auto;
+                          left: 0;
+                          right: 0;
+                          top: 20px;
+                          bottom:0;
+                          z-index: 0;
+                          position: absolute;
+                          background-color: white;
+                          border-radius: 0 0 100px 100px;
+                          width: 40px;
+                          height: 20px;
+                        }
+                        
+                        .horizon{
+                          position: absolute;
+                          margin: auto;
+                          left: 0;
+                          right: 0;
+                          top: 1%;
+                          bottom:0;    
+                          margin-top: auto;
+                          border-radius: 0px;
+                          width: 42px;
+                          height: 9px;
+                          background-color: #1d1d1b;
+                          z-index: 3;
+                        }
+                        
+                        .big-button{
+                          z-index: 4;
+                          margin: auto;
+                          left: 0;
+                          right: 0;
+                          top:0;
+                          bottom:0;
+                          border-radius: 50%;
+                          border: 2px solid #1d1d1b;
+                          position: absolute;
+                          height: 13px;
+                          width: 13px; 
+                          background-color: white;
+                        }
+                        
+                        .small-button{
+                          z-index: 5;
+                          margin: auto;
+                          left: 0;
+                          right: 0;
+                          top:0;
+                          bottom:0;
+                          border-radius: 50%;
+                          border: 2px solid #1d1d1b;
+                          position: absolute;
+                          height: 5px;
+                          width: 5px; 
+                        }
+
+                        @keyframes spin { 
+                            100% { 
+                                -webkit-transform: rotate(360deg); 
+                                transform:rotate(360deg); 
+                            } 
                         }
                     }
 

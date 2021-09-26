@@ -3,7 +3,9 @@ const app = new Vue({
     data: {
         pokemonList: [],
         pokemon: [],
-        searchPokemon: 'pikachu',
+        searchPokemon: '',
+        isLoading: false,
+        screenOf: true,
     },
     methods: {
         listarPokemones() {
@@ -24,19 +26,23 @@ const app = new Vue({
         },
         obtenerPokemon(pokemonName) {
             const url = 'https://pokeapi.co/api/v2/pokemon/'+pokemonName;
+            this.screenOf = false;
+            this.isLoading = true;
 
             fetch(url).then( (response) => response.json())
             .then( (data) => {
                 this.pokemon = data;
                 if (this.searchPokemon != '') this.searchPokemon = '';
-                //console.log(this.pokemon);
+                this.isLoading = false;
             })
             .catch( (error) => {
-                console.log(error);
+                this.pokemon = [];
+                this.isLoading = false;
+                this.screenOf = true;
             });
         }
     },
     mounted() {
-        this.obtenerPokemon(this.searchPokemon);
+        //this.obtenerPokemon(this.searchPokemon);
     }
 })

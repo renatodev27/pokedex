@@ -34,24 +34,40 @@
                         <div class="inner-circle first"></div>
                         <div class="inner-circle second"></div>
 
-                        <div class="inner-screen">
-                            <img :src="pokemon.sprites.front_default" class="screen-pokemon-img">    
-                            <div class="description-screen">
-                                <h3 v-text="pokemon.name.toUpperCase()"></h3>
-                                <table>
-                                    <tr>
-                                        <td>Experience</td>
-                                        <td align="right"> <label v-text="pokemon.base_experience"></label> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Height</td>
-                                        <td align="right"> <label v-text="pokemon.height"></label> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Weight</td>
-                                        <td align="right"> <label v-text="pokemon.weight"></label> </td>
-                                    </tr>
-                                </table>
+                        <div :class="(screenOf) ? 'inner-screen off' : 'inner-screen on'">
+                            <div v-if="isLoading">
+                                <div class="item">
+                                    <div class="ball"></div>
+                                    <div class="half-ball"></div>
+                                    <div class="big-button"></div>
+                                    <div class="small-button"></div>
+                                    <div class="horizon"></div>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div v-if="pokemon.length < 1">
+
+                                </div>
+                                <div v-else>
+                                    <img :src="pokemon.sprites.front_default" class="screen-pokemon-img">    
+                                    <div class="description-screen">
+                                        <h3 v-text="pokemon.name.toUpperCase()"></h3>
+                                        <table>
+                                            <tr>
+                                                <td>Experience</td>
+                                                <td align="right"> <label v-text="pokemon.base_experience"></label> </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Height</td>
+                                                <td align="right"> <label v-text="pokemon.height"></label> </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Weight</td>
+                                                <td align="right"> <label v-text="pokemon.weight"></label> </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
