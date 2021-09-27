@@ -42,6 +42,10 @@ Once you open the proyect on the left side of the pokedex you have a screen and 
 On the right side you have the list of the pokemons (if you haven't search or select one yet) and you can select one of them to show all his characteristics
 or see the pokemon information (health, attack, defense, speed, experience) once you search or select one from the list in this same side of the pokedex.
 
+## Image References
+<img src="https://user-images.githubusercontent.com/73003319/134846555-66b7be5d-9929-456c-9ee6-1d6314f8ea42.PNG">
+<img src="https://user-images.githubusercontent.com/73003319/134846557-d0f4c9ee-6ee1-41f7-a1e9-6320c0491f1f.PNG">
+
 ## Contact
 
 Renato Ramos Paretto - renatoramos.devops@gmail.com - rantopthetop93@gmail.com
