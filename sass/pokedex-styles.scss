@@ -83,11 +83,11 @@ body {
                             position: absolute;
                             width: 80px;
                             height: 80px;
-                            background-image: radial-gradient(rgb(225, 254, 255) 14%, rgb(140, 225, 247), #ffffff);
+                            background-image: radial-gradient(rgb(225, 254, 255) 14%, rgb(96, 196, 221), #45cfe7);
                             border-radius: 50%;
-                            top: 7%;
-                            left: 5%;
-                            box-shadow: #242424 0 0 15px -4px inset;
+                            top: 6%;
+                            left: 6%;
+                            box-shadow: #242424 0 0 4px -1px inset, 0 0 4px 1px #5c5c5c;
                         }
                     }
                 }
@@ -387,6 +387,31 @@ body {
             box-shadow: 2px 2px 4px 1px #290707;
 
             .header-rs {
+
+                .btn-pokemons-list {
+                    position: absolute;
+                    width: 150px;
+                    height: 40px;
+                    background: linear-gradient(to left, #686868 0%, #686868);
+                    color: rgb(236, 236, 236);
+                    top: 5%;
+                    left: 7%;
+                    border-radius: 5px;
+                    text-align: center;
+                    box-shadow: 0 0 3px 2px rgb(58, 58, 58) inset, 0 0 1px 3px #686868;
+                    transition: all .3s;
+
+                    &.active {
+                        background: linear-gradient(to left, #ff6b15 40%, #ff6b15 50%, #ff8c49);
+                        box-shadow: 0 0 3px 2px rgb(134, 65, 0);
+                        cursor: pointer;
+                    }
+
+                    h6 {
+                        font-size: 0.65rem;
+                        margin-top: 15px;
+                    }
+                }
 
                 .tirangle {
                     background-color: rgb(39, 11, 11);

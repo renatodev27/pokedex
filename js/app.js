@@ -24,6 +24,7 @@ const app = new Vue({
         statSpdef: 0,
         pokeSpeed: '',
         statSpeed: 0,
+        pokeType: '',
     },
     methods: {
         listarPokemones() {
@@ -67,6 +68,7 @@ const app = new Vue({
             const url = 'https://pokeapi.co/api/v2/pokemon/'+pokemonName;
             this.isLoading = true;
             this.searched = true;
+            if (synth.speaking) synth.cancel();
 
             if (this.searchPokemon !== '') {
                 fetch(url).then( (response) => response.json(), this.screenOf = false)
@@ -139,6 +141,22 @@ const app = new Vue({
             })
 
             this.functionWelcomeTalk(` A ${pokeName} has been found. ${hp} ${attack} and ${defense} `)
+        },
+        getPokemonsTypes() {
+            const url = 'https://pokeapi.co/api/v2/type';
+
+            fetch(url).then ( (response) => response.json())
+            .then ( (data) => {
+                data.results.map( (type) => {
+                    type
+                })
+            })
+        },
+        returnToPokemonList() {
+            if (synth.speaking) synth.cancel();
+            this.screenOf = true;
+            this.searched = false;
+            this.pokemon = [];
         }
     },
     created() {

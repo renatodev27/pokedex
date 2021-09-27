@@ -95,6 +95,9 @@
                 <div class="header-rs">
                     <div class="tirangle"></div>
                     <div class="rectangle"></div>
+                    <div :class="(searched) ? 'btn-pokemons-list active' : 'btn-pokemons-list'" @click="(searched) ? returnToPokemonList() : ''">
+                        <h6>All Pokemons</h6>
+                    </div>
                 </div>
                 <div class="body-rs">
                     <div class="rs-screen">
@@ -198,7 +201,7 @@
                                     <div class="pokemon-hp-bar"></div>
                                     <div class="type-text-content">
                                         <div v-for="type in pokemon.types">
-                                            <li class="pokemon-type-badge" v-text="type.type.name"></li>
+                                            <li class="pokemon-type-badge" v-text="type.type.name.charAt(0).toUpperCase() + type.type.name.substr(1)"></li>
                                         </div>
                                     </div>
                                 </div>
