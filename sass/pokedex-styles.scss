@@ -545,7 +545,10 @@ body {
                                     }
 
                                     &:hover {
-                                        background-color: #ffdb11;
+                                        background-color: #ffe866;
+                                        box-shadow: 0 0 2px 0 #645d34;
+                                        transform: translate(5px);
+                                        transition: all .3s;
                                     }
                                 }
                             }
@@ -601,8 +604,8 @@ body {
                         border-radius: 5px;
                         position: absolute;
 
-                        &.one { right: 8%; }
-                        &.two { right: 25%; }
+                        &.one { right: 8%; cursor: pointer; }
+                        &.two { right: 25%; cursor: pointer; }
                     }
 
                     .white-btn {

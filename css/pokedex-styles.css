@@ -476,7 +476,10 @@ body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemo
   margin-right: 10px;
 }
 body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemons-list ul a:hover {
-  background-color: #ffdb11;
+  background-color: #ffe866;
+  box-shadow: 0 0 2px 0 #645d34;
+  transform: translate(5px);
+  transition: all 0.3s;
 }
 body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .buttons-table {
   width: 85%;
@@ -521,9 +524,11 @@ body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn {
 }
 body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn.one {
   right: 8%;
+  cursor: pointer;
 }
 body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn.two {
   right: 25%;
+  cursor: pointer;
 }
 body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .white-btn {
   position: absolute;
