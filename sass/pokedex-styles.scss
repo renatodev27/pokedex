@@ -236,6 +236,7 @@ body {
                     bottom: 13%;
                     left: 9%;
                     position: absolute;
+                    box-shadow: 0 0 4px 2px #555555;
                 }
 
                 .button-bar {
@@ -493,17 +494,44 @@ body {
                             }
 
                             .type-text-content {
-                                margin-top: 5px;
+                                margin-top: 10px;
                                 display: flex;
                                 font-size: 0.55rem;
 
                                 .pokemon-type-badge {
                                     padding: 4px;
                                     color: #fff;
-                                    background-color: #1b1b1b;
                                     list-style: none;
                                     margin-right: 3px;
                                     border-radius: 5px;
+                                }
+                            }
+                            
+                            .ability-text-content {
+                                display: flex;
+                                position: absolute;
+                                width: 95%;
+                                bottom: 2%;
+                                justify-content: space-between;
+
+                                div:first-child {
+                                    font-size: 0.7rem;
+                                    margin-top: 5px;
+                                }
+
+                                .abilities-list {
+                                    display: inline-block;
+                                    font-size: 0.55rem;
+                                    margin-left: 10px;
+
+                                    .pokemon-ability-badge {
+                                        padding: 4px;
+                                        color: #fff;
+                                        background-color: #383769;
+                                        list-style: none;
+                                        margin-right: 3px;
+                                        border-radius: 5px;
+                                    }
                                 }
                             }
 
@@ -520,6 +548,8 @@ body {
                             max-height: 143px;
                             overflow-y: scroll;
                             overflow-x: hidden;
+
+                            h5 { margin: 5px 0 5px 0}
                             
                             ul {
                                 list-style: none;
@@ -599,13 +629,45 @@ body {
                     .bottom-tb-btn {
                         background-color: #1d1d1b;
                         width: 70px;
-                        height: 15px;
-                        bottom: 28%;
+                        height: 25px;
+                        bottom: 26%;
                         border-radius: 5px;
                         position: absolute;
+                        box-shadow: 0 0 2px 0 #c0c0c0 inset, 0 0 2px 1px #242424;
+
+                        .arrow {
+                            background-color: #1d1d1b;
+                            border-top: 8px solid transparent;
+                            border-bottom: 8px solid transparent;
+                            position: absolute;
+                            top: 17%;
+                            transition: all .1s;
+                            
+                            &.left {
+                                border-right: 20px solid rgb(77, 77, 77);
+                                left: 30%;
+                            }
+
+                            &.right {
+                                border-left: 20px solid rgb(77, 77, 77);
+                                right: 30%;
+                            }
+                        }
 
                         &.one { right: 8%; cursor: pointer; }
-                        &.two { right: 25%; cursor: pointer; }
+                        &.two { right: 23%; cursor: pointer; }
+
+                        &.disabled {
+                            cursor: auto;
+                            background-color: #30302f;
+
+                            .arrow {
+                                background-color: #30302f;
+                            }
+
+                            .arrow.left { border-right: 20px solid #30302f; background-color: #30302f;}
+                            .arrow.right { border-right: 20px solid #1d1d1b;}
+                        }
                     }
 
                     .white-btn {
@@ -631,8 +693,8 @@ body {
                     .yellow-button {
                         background: radial-gradient(#f8f552 10%, #ffc400, );
                         position: absolute;
-                        width: 50px;
-                        height: 50px;
+                        width: 45px;
+                        height: 45px;
                         bottom: 16%;
                         box-shadow: 0 0 2px 2px #65661e inset;
                         border-radius: 50%;

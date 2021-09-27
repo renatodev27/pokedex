@@ -202,6 +202,7 @@ body .pokedex-body .pokedex-left-side .footer-ls .circle {
   bottom: 13%;
   left: 9%;
   position: absolute;
+  box-shadow: 0 0 4px 2px #555555;
 }
 body .pokedex-body .pokedex-left-side .footer-ls .button-bar {
   width: 55px;
@@ -430,14 +431,37 @@ body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemo
   margin-top: 3px;
 }
 body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemon-stats .type-text-content {
-  margin-top: 5px;
+  margin-top: 10px;
   display: flex;
   font-size: 0.55rem;
 }
 body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemon-stats .type-text-content .pokemon-type-badge {
   padding: 4px;
   color: #fff;
-  background-color: #1b1b1b;
+  list-style: none;
+  margin-right: 3px;
+  border-radius: 5px;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemon-stats .ability-text-content {
+  display: flex;
+  position: absolute;
+  width: 95%;
+  bottom: 2%;
+  justify-content: space-between;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemon-stats .ability-text-content div:first-child {
+  font-size: 0.7rem;
+  margin-top: 5px;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemon-stats .ability-text-content .abilities-list {
+  display: inline-block;
+  font-size: 0.55rem;
+  margin-left: 10px;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemon-stats .ability-text-content .abilities-list .pokemon-ability-badge {
+  padding: 4px;
+  color: #fff;
+  background-color: #383769;
   list-style: none;
   margin-right: 3px;
   border-radius: 5px;
@@ -453,6 +477,9 @@ body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemo
   max-height: 143px;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemons-list h5 {
+  margin: 5px 0 5px 0;
 }
 body .pokedex-body .pokedex-right-side .body-rs .rs-screen .inner-screen .pokemons-list ul {
   list-style: none;
@@ -517,18 +544,49 @@ body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .buttons-table .tabl
 body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn {
   background-color: #1d1d1b;
   width: 70px;
-  height: 15px;
-  bottom: 28%;
+  height: 25px;
+  bottom: 26%;
   border-radius: 5px;
   position: absolute;
+  box-shadow: 0 0 2px 0 #c0c0c0 inset, 0 0 2px 1px #242424;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn .arrow {
+  background-color: #1d1d1b;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  position: absolute;
+  top: 17%;
+  transition: all 0.1s;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn .arrow.left {
+  border-right: 20px solid #4d4d4d;
+  left: 30%;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn .arrow.right {
+  border-left: 20px solid #4d4d4d;
+  right: 30%;
 }
 body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn.one {
   right: 8%;
   cursor: pointer;
 }
 body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn.two {
-  right: 25%;
+  right: 23%;
   cursor: pointer;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn.disabled {
+  cursor: auto;
+  background-color: #30302f;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn.disabled .arrow {
+  background-color: #30302f;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn.disabled .arrow.left {
+  border-right: 20px solid #30302f;
+  background-color: #30302f;
+}
+body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .bottom-tb-btn.disabled .arrow.right {
+  border-right: 20px solid #1d1d1b;
 }
 body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .white-btn {
   position: absolute;
@@ -551,8 +609,8 @@ body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .white-btn.two {
 body .pokedex-body .pokedex-right-side .body-rs .rs-buttons .yellow-button {
   background: radial-gradient(#f8f552 10%, #ffc400);
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   bottom: 16%;
   box-shadow: 0 0 2px 2px #65661e inset;
   border-radius: 50%;
