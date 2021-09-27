@@ -87,8 +87,6 @@ const app = new Vue({
                         }
                     })
 
-                    console.log(this.pokemon.types);
-
                     this.getPokemonStats(this.pokemon.stats, this.pokemon.name);
                     if (this.searchPokemon != '') this.searchPokemon = '';
                     this.searched = true;
