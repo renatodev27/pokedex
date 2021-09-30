@@ -12,6 +12,7 @@
     <li> <a href="#built-with">Built With</a></li>
     <li> <a href="#getting-started">Getting Started</a> </li>
     <li> <a href="#usage">Usage</a> </li>
+    <li> <a href="#image-references">Pictures</a> </li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
