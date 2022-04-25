@@ -24,7 +24,7 @@ body .pokedex-body .pokedex-left-side {
   background: linear-gradient(45deg, #e40a27, #ff334e);
   border-radius: 10px 0 0 10px;
 }
-@media (max-width: 400px) {
+@media (max-width: 400px) and (max-height: 1100px) {
   body .pokedex-body .pokedex-left-side {
     width: 98%;
     top: 1%;
@@ -43,18 +43,18 @@ body .pokedex-body .pokedex-left-side .header-ls .back-rectangle {
 }
 body .pokedex-body .pokedex-left-side .header-ls .lower-triangle {
   position: absolute;
-  border-bottom: 60px solid #ff334e;
-  border-left: 118px solid transparent;
+  border-bottom: 72px solid #ff334e;
+  border-left: 125px solid transparent;
   transform: rotate(180deg);
   left: 30%;
-  top: 12.2%;
+  top: 10%;
   z-index: 1;
 }
 body .pokedex-body .pokedex-left-side .header-ls .lower-triangle.shadow-lt {
   position: absolute;
   background-color: #441616;
-  top: 13.8%;
-  border-bottom: 56px solid #f72440;
+  top: 12.1%;
+  border-bottom: 63px solid #f72440;
   border-left: 110px solid transparent;
   transform: rotate(0);
   z-index: 0;
@@ -76,7 +76,7 @@ body .pokedex-body .pokedex-left-side .header-ls .large-circle .principal-circle
   box-shadow: 0 0 4px 1px #242424;
   position: absolute;
   top: 4%;
-  left: 5%;
+  left: 10%;
   z-index: 999;
 }
 body .pokedex-body .pokedex-left-side .header-ls .large-circle .principal-circle .inner-circle {
@@ -94,7 +94,8 @@ body .pokedex-body .pokedex-left-side .header-ls .small-circle {
   height: 30px;
   border-radius: 50%;
   position: absolute;
-  box-shadow: 0 0 3px 0 #1b1b1b inset;
+  box-shadow: 0 0 4px 2px #5c5c5c inset;
+  margin-left: 60px;
   z-index: 999;
 }
 body .pokedex-body .pokedex-left-side .header-ls .small-circle.first {
