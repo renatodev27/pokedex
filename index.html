@@ -17,18 +17,19 @@
                     <div class="lower-triangle"></div>
                     <div class="rest-rectangle"></div>
                     
-                    <!-- <div class="back-rectangle shadow-br"></div> -->
-                    <div class="lower-triangle shadow-lt"></div>
-                    <!-- <div class="rest-rectangle shadow-rr"></div> -->
+                    <div class="lower-triangle"></div>
+                    <div class="shadow-lt"></div>
                     
                     <div class="large-circle">
                         <div class="principal-circle">
                             <div class="inner-circle"></div>
                         </div>
                     </div>
-                    <div class="small-circle first"></div>
-                    <div class="small-circle second"></div>
-                    <div class="small-circle third"></div>
+                    <div class="small-circles">
+                        <div class="small-circle first"></div>
+                        <div class="small-circle second"></div>
+                        <div class="small-circle third"></div>
+                    </div>
                 </div>
                 <div class="body-ls">
                     <div class="pokedex-screen">
@@ -71,17 +72,30 @@
                     </div>
                 </div>
                 <div class="footer-ls">
-                    <div class="circle"></div>
-                    <div class="button-bar first"></div>
-                    <div class="button-bar second"></div>
+                    <div class="inline-content">
+                        <div class="circle"></div>
+                        
+                        <div class="buttons-content">
+                            <div class="buttons-bar">
+                                <div class="button-bar first"></div>
+                                <div class="button-bar second"></div>
+                            </div>
+                            <div class="buttons-bar">
+                                <div class="button-bar third"></div>
+                                <div class="button-bar fourth"></div>
+                            </div>
+                        </div>
 
-                    <div class="btn-vertical">
-                        <div class="arrow-up"></div>
-                        <div class="arrow-down"></div>
-                    </div>
-                    <div class="btn-horizontal">
-                        <div class="arrow-left"></div>
-                        <div class="arrow-right"></div>
+                        <div class="arrows-content">
+                            <div class="btn-vertical">
+                                <div class="arrow up"></div>
+                                <div class="arrow down"></div>
+                            </div>
+                            <div class="btn-horizontal">
+                                <div class="arrow left"></div>
+                                <div class="arrow right"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <input type="text" placeholder="Search pokemon" @keyup.enter="obtenerPokemon(searchPokemon, false)" class="input-container" v-model="searchPokemon">
