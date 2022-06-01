@@ -119,39 +119,39 @@ const app = new Vue({
 
                 switch (stat.stat.name) {
                     case 'hp' : 
-                        hp = 'Have a' + stat.base_stat + ' of health.';
+                        hp = `Tiene ${stat.base_stat} de salud.`;
                         this.pokeHp =  'Health';
                         this.statHp = stat.base_stat;
                     break;
                     case 'attack' : 
-                        attack = 'Have a' + stat.base_stat + ' of attack.'; 
+                        attack = `${stat.base_stat} de ataque.`; 
                         this.pokeAttack = `${stat.stat.name.charAt(0).toUpperCase()}${stat.stat.name.substr(1)}`;
                         this.statAttack = stat.base_stat;
                     break;
                     case 'defense' : 
-                        defense = 'Have a' + stat.base_stat + ' of defense.'; 
+                        defense = `${stat.base_stat} de defensa.`; 
                         this.pokeDefense = `${stat.stat.name.charAt(0).toUpperCase()}${stat.stat.name.substr(1)}`;
                         this.statDefense = stat.base_stat;
                     break;
                     case 'special-attack' :
-                        sp_attack = 'Have a' + stat.base_stat + ' of special attack.'; 
+                        sp_attack = `Tiene ${stat.base_stat} de ataque especial.`; 
                         this.pokeSpAttack = `${stat.stat.name.charAt(0).toUpperCase()}${stat.stat.name.substr(1)}`;
                         this.statSpat = stat.base_stat;
                     break;
                     case 'special-defense' : 
-                        sp_defense = 'Have a' + stat.base_stat + ' of special defense.'; 
+                        sp_defense = `Tiene ${stat.base_stat} de defensa especial.`; 
                         this.pokeSpDefense = `${stat.stat.name.charAt(0).toUpperCase()}${stat.stat.name.substr(1)}`;
                         this.statSpdef = stat.base_stat;
                     break;
                     case 'speed' : 
-                        speed = 'Have a' + stat.base_stat + ' of speed.'; 
+                        speed = `Tiene ${stat.base_stat} de velocidad.`; 
                         this.pokeSpeed = `${stat.stat.name.charAt(0).toUpperCase()}${stat.stat.name.substr(1)}`;
                         this.statSpeed = stat.base_stat;
                     break;
                 }
             })
 
-            this.functionWelcomeTalk(` A ${pokeName} has been found. ${hp} ${attack} and ${defense} `)
+            this.functionWelcomeTalk(` Has encontrado un ${pokeName}. ${hp} ${attack} y ${defense} `)
         },
         getPokemonsTypes() {
             const url = 'https://pokeapi.co/api/v2/type';

@@ -13,37 +13,36 @@
         <div class="pokedex-body">
             <div class="pokedex-left-side">
                 <div class="header-ls">
-                    <div class="back-rectangle"></div>
-                    <div class="lower-triangle"></div>
-                    <div class="rest-rectangle"></div>
-                    
-                    <div class="lower-triangle"></div>
-                    <div class="shadow-lt"></div>
-                    
-                    <div class="large-circle">
+                    <div class="line-header">
+                        <div class="rectangle left"></div>
+                        <div class="rectangle right"></div>
+                    </div>
+                    <div class="lights-circles">
                         <div class="principal-circle">
                             <div class="inner-circle"></div>
                         </div>
-                    </div>
-                    <div class="small-circles">
-                        <div class="small-circle first"></div>
-                        <div class="small-circle second"></div>
-                        <div class="small-circle third"></div>
+                        <div class="small-circles">
+                            <div class="small-circle first"></div>
+                            <div class="small-circle second"></div>
+                            <div class="small-circle third"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="body-ls">
                     <div class="pokedex-screen">
-                        <div class="inner-circle first"></div>
-                        <div class="inner-circle second"></div>
+                        <div class="screen-top-circles">
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                        </div>
 
                         <div :class="(screenOf) ? 'inner-screen off' : 'inner-screen on'">
                             <div v-if="isLoading">
                                 <div class="item">
-                                    <div class="ball"></div>
-                                    <div class="half-ball"></div>
-                                    <div class="big-button"></div>
-                                    <div class="small-button"></div>
-                                    <div class="horizon"></div>
+                                    <div class="parent ball"></div>
+                                    <div class="parent half-ball"></div>
+                                    <div class="parent big-button"></div>
+                                    <div class="parent small-button"></div>
+                                    <div class="parent horizon"></div>
                                 </div>
                             </div>
                             <div v-else>
@@ -64,11 +63,15 @@
                             </div>
                         </div>
 
-                        <div class="inner-circle bottom"></div>
-                        <div class="inner-line one"></div>
-                        <div class="inner-line two"></div>
-                        <div class="inner-line three"></div>
-                        <div class="inner-line four"></div>
+                        <div class="screen-footer">
+                            <div class="circle bottom"></div>
+                            <div class="line-bars">
+                                <div class="line one"></div>
+                                <div class="line two"></div>
+                                <div class="line three"></div>
+                                <div class="line four"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="footer-ls">
@@ -87,43 +90,54 @@
                         </div>
 
                         <div class="arrows-content">
-                            <div class="btn-vertical">
+                            <div class="arrow-btn vertical">
                                 <div class="arrow up"></div>
                                 <div class="arrow down"></div>
                             </div>
-                            <div class="btn-horizontal">
+                            <div class="arrow-btn horizontal">
                                 <div class="arrow left"></div>
                                 <div class="arrow right"></div>
                             </div>
                         </div>
                     </div>
 
-                    <input type="text" placeholder="Search pokemon" @keyup.enter="obtenerPokemon(searchPokemon, false)" class="input-container" v-model="searchPokemon">
+                    <input type="text" placeholder="Buscar pokemon" @keyup.enter="obtenerPokemon(searchPokemon, false)" class="input-container" v-model="searchPokemon">
                 </div>
             </div>
             <div class="pokedex-tube">
-                <div class="tube-spinner up"></div>
-                <div class="tube-spinner middle"></div>
-                <div class="tube-spinner down"></div>
+                <div class="tube-middle"></div>
             </div>
             <div class="pokedex-right-side">
-                <div class="header-rs">
-                    <div class="tirangle"></div>
-                    <div class="rectangle"></div>
-                    <div :class="(searched) ? 'btn-pokemons-list active' : 'btn-pokemons-list'" @click="(searched) ? returnToPokemonList() : ''">
-                        <h6>All Pokemons</h6>
-                    </div>
-                </div>
                 <div class="body-rs">
+                    <div class="rs-header">
+                        <div class="rs-design-header">
+                            <div class="middle-objects">
+                                <div class="light one">
+                                    <div class="inner"></div>
+                                </div>
+                                <div class="drows-text">
+                                    <div class="one"></div>
+                                    <div class="two"></div>
+                                    <h6>POKEMONS</h6>
+                                </div>
+                                <div class="light two">
+                                    <div class="inner"></div>
+                                </div>
+                            </div>
+                            <div class="rectangle left"></div>
+                            <div class="rectangle middle"></div>
+                            <div class="rectangle right"></div>
+                        </div>
+                    </div>
                     <div class="rs-screen">
                         <div class="inner-screen">
                             <div v-if="listLoading">
                                 <div class="item">
-                                    <div class="ball"></div>
-                                    <div class="half-ball"></div>
-                                    <div class="big-button"></div>
-                                    <div class="small-button"></div>
-                                    <div class="horizon"></div>
+                                    <div class="parent ball"></div>
+                                    <div class="parent half-ball"></div>
+                                    <div class="parent big-button"></div>
+                                    <div class="parent small-button"></div>
+                                    <div class="parent horizon"></div>
                                 </div>
                             </div>
                             <div v-else>
@@ -232,18 +246,25 @@
                                     </div>
                                 </div>
                                 <div v-else class="pokemons-list">
-                                    <h5 align="center">POKEMONS</h5>
-                                    <ul v-for="poke in pokemonList">
-                                        <li @click="choosePokemon(poke)">
-                                            <a href="#">
+                                    <table border="0" style="width: 100%">
+                                        <tr v-for="poke in pokemonList" @click="choosePokemon(poke)">
+                                            <td align="center">
                                                 <img :src="poke.sprites.front_default" class="pokemon-table-img">
+                                            </td>
+                                            <td align="center">
                                                 <span v-text="poke.name.toUpperCase()"></span>
+                                            </td>
+                                            <td align="center">
                                                 <span v-text="poke.base_experience + 'exp'"></span>
+                                            </td>
+                                            <td align="center">
                                                 <span v-text="poke.height + 'cm'"></span>
+                                            </td>
+                                            <td align="center">
                                                 <span v-text="poke.weight + 'kg'"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -266,17 +287,28 @@
                             </tr>
                         </table>
 
-                        <div :class="(next || listLoading) ? 'bottom-tb-btn one' : 'bottom-tb-btn one disabled'" @click="(next && !listLoading && !searched) ? nextPrevPokemonList('next') : ''">
-                            <div class="arrow right"></div>
+                        <div v-if="searched" class="all-pokemons-btn" align="right">
+                            <div class="btn-pokemons-list" @click="(searched) ? returnToPokemonList() : ''">
+                                <h6>All Pokemons</h6>
+                            </div>
                         </div>
-                        <div :class="(prev || listLoading) ? 'bottom-tb-btn two' : 'bottom-tb-btn two disabled'" @click="(prev && !listLoading && !searched) ? nextPrevPokemonList('prev') : ''">
-                            <div class="arrow left"></div>
+                        <div v-else class="list-indicator-content">
+                            <div :class="(prev || listLoading) ? 'bottom-tb-btn two' : 'bottom-tb-btn two disabled'" @click="(prev && !listLoading && !searched) ? nextPrevPokemonList('prev') : ''">
+                                <div class="arrow left"></div>
+                            </div>
+                            <div :class="(next || listLoading) ? 'bottom-tb-btn one' : 'bottom-tb-btn one disabled'" @click="(next && !listLoading && !searched) ? nextPrevPokemonList('next') : ''">
+                                <div class="arrow right"></div>
+                            </div>
                         </div>
 
-                        <div class="white-btn one"></div>
-                        <div class="white-btn two"></div>
+                        <div class="middle-buttons-content">
+                            <div class="white-buttons">
+                                <div class="white-btn one"></div>
+                                <div class="white-btn two"></div>
+                            </div>
 
-                        <div class="yellow-button"></div>
+                            <div class="yellow-button"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="footer-rs">
