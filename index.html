@@ -76,16 +76,23 @@
                 </div>
                 <div class="footer-ls">
                     <div class="inline-content">
-                        <div class="circle"></div>
+                        <div class="footer-circles">
+                            <div class="circle"></div>
+                            <div class="circle two"></div>
+                        </div>
                         
                         <div class="buttons-content">
                             <div class="buttons-bar">
                                 <div class="button-bar first"></div>
                                 <div class="button-bar second"></div>
+                                <div class="button-bar fourth"></div>
+                                <!-- <div class="button-bar third"></div> -->
                             </div>
                             <div class="buttons-bar">
+                                <div class="button-bar sixth"></div>
+                                <div class="button-bar fifth"></div>
                                 <div class="button-bar third"></div>
-                                <div class="button-bar fourth"></div>
+                                <!-- <div class="button-bar third"></div> -->
                             </div>
                         </div>
 
@@ -112,17 +119,14 @@
                     <div class="rs-header">
                         <div class="rs-design-header">
                             <div class="middle-objects">
-                                <div class="light one">
-                                    <div class="inner"></div>
-                                </div>
+                                <div class="light one"></div>
                                 <div class="drows-text">
-                                    <div class="one"></div>
+                                    <div class="three"></div>
                                     <div class="two"></div>
-                                    <h6>POKEMONS</h6>
+                                    <div class="one"></div>
+                                    <h6 v-text="searched ? 'POKEDEX' : 'POKEMONES'"></h6>
                                 </div>
-                                <div class="light two">
-                                    <div class="inner"></div>
-                                </div>
+                                <div class="light two"></div>
                             </div>
                             <div class="rectangle left"></div>
                             <div class="rectangle middle"></div>
@@ -289,7 +293,7 @@
 
                         <div v-if="searched" class="all-pokemons-btn" align="right">
                             <div class="btn-pokemons-list" @click="(searched) ? returnToPokemonList() : ''">
-                                <h6>All Pokemons</h6>
+                                <h6>Pokemones</h6>
                             </div>
                         </div>
                         <div v-else class="list-indicator-content">

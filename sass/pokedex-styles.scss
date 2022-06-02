@@ -10,7 +10,6 @@ body {
     background-color: rgb(39, 11, 11);
     font-family: 'Press Start 2P', cursive;
     overflow-x: hidden;
-    min-height: 100%;
 
     .pokedex-body {
         width: 100%;
@@ -31,7 +30,6 @@ body {
                         background: rgb(228, 10, 39);
 
                         &.left {
-                            //background: linear-gradient(45deg, rgb(228, 10, 39), rgb(255, 51, 78));
                             width: 35%;
                             height: 120px;
                             left: 0;
@@ -80,7 +78,7 @@ body {
                     display: flex;
                     justify-content: space-between;
 
-                    @media (max-width: 480px) { padding-bottom: 5%; padding-top: 3%; }
+                    @media (max-width: 575px) { padding-bottom: 5%; padding-top: 3%; }
                 
                     .principal-circle {
                         width: 90px;
@@ -104,8 +102,8 @@ body {
                     .small-circles {
                         display: flex;
                         overflow-x: hidden;
-                        margin-right: 4%;
-                        margin-top: 1%;
+                        padding-right: 6%;
+                        padding-top: 1%;
     
                         .small-circle {
                             width: 35px;
@@ -117,15 +115,15 @@ body {
             
                             &.first {
                                 background-image: radial-gradient(rgb(255, 191, 191) 14%, rgb(255, 36, 91), #ffffff);
-                                box-shadow: 0 0 4px 2px rgb(133, 30, 44) inset;
+                                box-shadow: 0 0 2px 1px rgb(133, 30, 44);
                             }
                             &.second {
                                 background-image: radial-gradient(rgb(253, 252, 208) 14%, rgb(250, 215, 20), #ffffff);
-                                box-shadow: 0 0 4px 2px rgb(94, 92, 9) inset;
+                                box-shadow: 0 0 2px 1px rgb(94, 92, 9);
                             }
                             &.third {
                                 background-image: radial-gradient(rgb(209, 255, 197) 20%, rgb(74, 250, 20), #ffffff);
-                                box-shadow: 0 0 4px 2px rgb(29, 112, 3) inset;
+                                box-shadow: 0 0 2px 1px rgb(29, 112, 3);
                             }
                         }
                     }
@@ -205,11 +203,8 @@ body {
                         margin: 0 auto;
                         justify-content: space-between;
                         padding-top: 15px;
-                        
-                        &.bottom {
-                            width: 28px;
-                            height: 28px;
-                        }
+
+                        @media (max-width: 575px) { width: 20%; }
                     }
 
                     .screen-footer {
@@ -221,6 +216,7 @@ body {
                         .circle {
 
                             &.bottom {
+                                margin-left: 10px;
                                 width: 28px;
                                 height: 28px;
                             }
@@ -230,6 +226,11 @@ body {
                             width: 10%;
                             margin-top: 0.3%;
 
+                            @media (max-width: 575px) { 
+                                width: 20%; 
+                                margin-right: 5px;
+                            }
+
                             .line {
                                 height: 0.01rem;
                                 background-color: #383838;
@@ -237,7 +238,7 @@ body {
                                 z-index: 999999;
                                 
                                 &.two { margin-top: 7px }
-                                &.three { margin-top: 6.5px }
+                                &.three { margin-top: 7px }
                                 &.four { margin-top: 7px }
                             }
                         }
@@ -248,36 +249,45 @@ body {
             .footer-ls {
                 width: 95%;
                 margin: 3.5% auto 0 auto;
-                @media (max-width: 480px) { padding-top: 6.5% }
+                @media (max-width: 575px) { padding-top: 6.5% }
 
                 .inline-content {
                     display: flex;
                     justify-content: space-between;
                     margin-bottom: 1.5%;
 
-                    .circle {
-                        background-color: #242424;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        box-shadow: 0 0 4px 2px #555555;
+                    .footer-circles {
+                        .circle {
+                            background-color: #cacaca;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            box-shadow: 0 0 14px 8px inset #ee6d04, 0 0 3px 1px #202020;
+
+                            &.two {
+                                margin-top: 20px;
+                                background-color: #ffffff !important;
+                                box-shadow: 0 0 14px 8px inset #0485ee, 0 0 3px 1px #202020;
+                            }
+                        }
                     }
 
                     .buttons-content {
                         display: flex;
-                        margin-top: 1%;
 
                         .button-bar {
                             width: 55px;
                             height: 13px;
                             border-radius: 10px;
                             box-shadow: 1px 1px 4px 1px #383838;
-                            margin: 10px;
+                            margin: 15px;
         
                             &.first { background-color: #11ff4d }
                             &.second { background-color: #11b4ff }
                             &.third { background-color: #ff7b53 }
-                            &.fourth { background-color: #6832ff }
+                            &.fourth { background-color: #a967df }
+                            &.fifth { background-color: #54c49f }
+                            &.sixth { background-color: #e6bd64 }
                         }
                     }
 
@@ -294,14 +304,25 @@ body {
                             &.vertical {
                                 width: 32px;
                                 height: 100px;
-                                left: 32%;
-                                box-shadow: 0 0 3px 0 #1f1f1f;
+                                left: 33%;
+                                box-shadow: 0 0 2px 1px #202020, 0 0 3px 1px  inset #7c7c7c;
                             }
                             &.horizontal {
                                 width: 100px;
                                 height: 32px;
-                                top: 32%;
-                                box-shadow: -1px 1px 3px 0 #1f1f1f;
+                                top: 32.5%;
+                                box-shadow: 0 0 2px 1px #202020, 0 0 3px 1px  inset #7c7c7c;
+
+                                &::before {
+                                    content: "";
+                                    position: absolute;
+                                    width: 28px;
+                                    height: 40px;
+                                    background-color: #222222;
+                                    margin-top: -4px;
+                                    left: 34%;
+                                    z-index: 99;
+                                }
                             }
 
                             .arrow { 
@@ -309,24 +330,24 @@ body {
                                 position: absolute;
     
                                 &.up, &.down {
-                                    border-left: 10px solid transparent; 
-                                    border-right: 10px solid transparent;
-                                    right: 20%;
+                                    border-left: 9px solid transparent; 
+                                    border-right: 9px solid transparent;
+                                    right: 22%;
                                 }
-                                &.up { border-bottom: 18px solid #161616; top: 5%; }
-                                &.down { border-top: 18px solid #161616; bottom: 5%; }
+                                &.up { border-bottom: 17px solid #585050; top: 5%; }
+                                &.down { border-top: 17px solid #585050; bottom: 5%; }
     
     
                                 &.left, &.right {
-                                    border-top: 10px solid transparent; 
-                                    border-bottom: 10px solid transparent;
-                                    top: 20%;
+                                    border-top: 8px solid transparent; 
+                                    border-bottom: 8px solid transparent;
+                                    top: 27%;
                                 }
                                 &.left {
-                                    border-right: 20px solid #161616; left: 0;
+                                    border-right: 17px solid #585050; left: 4%;
                                 }
                                 &.right {
-                                    border-left: 20px solid #161616; right: 0;
+                                    border-left: 17px solid #585050; right: 4%;
                                 }
                             }
                         }
@@ -353,7 +374,7 @@ body {
                         box-shadow: 0 0 3px 1px #ffbb00;
                     }
 
-                    @media (max-width: 480px) { margin-top: 6.5%; margin-bottom: 7.5% }
+                    @media (max-width: 575px) { margin-top: 6.5%; margin-bottom: 7.5% }
                 }
             }
         }
@@ -386,7 +407,7 @@ body {
                 left: 42%;
                 background: linear-gradient(72deg, rgb(255, 41, 70), rgb(253, 37, 66), rgb(253, 64, 89)) !important;
 
-                @media (max-width: 480px) { width: 25%; left: 38%; }
+                @media (max-width: 575px) { width: 25%; left: 38%; }
             }
         }
 
@@ -398,7 +419,7 @@ body {
 
             .rs-header {
                 width: 100%;
-                margin: 0 auto 1.5% auto;
+                margin: 12% auto 1.5% auto;
 
                 .rs-design-header {
                     display:flex;
@@ -419,15 +440,7 @@ body {
                             border-radius: 50%;
                             box-shadow: 0 0 4px 1px #242424;
                             margin: 0 auto;
-
-                            .inner {
-                                width: 21px;
-                                height: 21px;
-                                margin: 8% auto;
-                                background-image: radial-gradient(rgb(225, 254, 255) 14%, rgb(96, 196, 221), #45cfe7);
-                                border-radius: 50%;
-                                box-shadow: #242424 0 0 4px -1px inset, 0 0 4px 1px #5c5c5c;
-                            }
+                            box-shadow: 0 0 10px 4px inset #0ccf6e, 0 0 3px 1px #242424;
 
                             &.one {
                                 margin-left: 2%;
@@ -438,59 +451,57 @@ body {
                         }
 
                         .drows-text {
-                            .one {
-                                width: 200px;
-                                position: absolute;
-                                border-left: 20px solid transparent;
-                                border-right: 20px solid transparent;
-                                border-bottom: 10px solid #242424;
-                                top: 0;
-                                z-index: 99;
-                                margin-left: -50px;
-                                transform: rotate(180deg);
+                            top: -50px;
+                            position: relative;
 
-                                &::before {
+                            .one, .two, .three {
+                                position: relative;
+                                border-bottom: 10px solid #242424;
+                                border-left: 11px solid transparent;
+                                border-right: 11px solid transparent;
+
+                                &::before, &::after {
                                     content: "";
                                     position: absolute;
-                                    width: 200px;
+                                    width: 99%;
                                     top: 1px;
-                                    left: -8%;
-                                    border-left: 16px solid transparent;
-                                    border-right: 16px solid transparent;
+                                    border-left: 9px solid transparent;
+                                    border-right: 9px solid transparent;
                                     border-bottom: 8px solid rgb(228, 10, 39);
                                 }
                             }
 
-                            .two {
-                                width: 150px;
-                                position: absolute;
-                                border-left: 20px solid transparent;
-                                border-right: 20px solid transparent;
-                                border-bottom: 10px solid #242424;
-                                top: 20%;
-                                margin-left: -25px;
-                                z-index: 99;
-                                transform: rotate(180deg);
+                            .one {
+                                width: 100%;
+                                left: -8%;
+                                margin-top: 5px;
 
-                                &::before {
-                                    content: "";
-                                    position: absolute;
-                                    width: 150px;
-                                    top: 1px;
-                                    margin-left: -16px;
-                                    border-left: 16px solid transparent;
-                                    border-right: 16px solid transparent;
-                                    border-bottom: 8px solid rgb(228, 10, 39);
-                                }
+                                &::before, &::after { left: -5.7% !important }
+                            }
+                            .two {
+                                width: 80%;
+                                left: 1.5%;
+                                z-index: 99;
+                                margin-top: 5px;
+
+                                &::before, &::after { left: -7.3% !important; width: 99%; }
+                            }
+                            .three {
+                                width: 60%;
+                                left: 11%;
+                                z-index: 99;
+                                margin-top: -3%;
+
+                                &::before, &::after { left: -10% !important }
                             }
                             
                             h6 {
-                                margin-top: 50px;
+                                margin-top: 20px;
                                 font-size: 1.8rem;
                                 color: #fff;
                                 text-shadow: 1px 1px 4px black;
     
-                                @media (max-width: 480px) {
+                                @media (max-width: 575px) {
                                     font-size: 1rem;
                                 }
                             }
@@ -503,70 +514,62 @@ body {
                         background-color: rgb(253, 12, 45);
                         position: relative;
                         border-bottom: 1px inset #313131;
-                        border-top: 1px solid #313131;
-                        box-shadow: 0 0 2px 1px  #242424;
+                        border-top: 2px solid #313131;
+                        box-shadow: 0 1px 4px 0  #313131;
     
-                        &.left {
+                        &.left, &.right {
                             height: 50px;
                             
                             &::before, &::after {
                                 content: "";
                                 position: absolute;
+                                border-bottom: 50px solid rgb(253, 12, 45);
+                            }
+
+                            &::before {
+                                top: -50px;
+                                z-index: 99;
+                            }
+                            &::after { 
+                                top: -52px;
+                                border-bottom: 50px solid #313131 
+                            }
+                        }
+
+                        &.left {
+                            &::before, &::after {
                                 border-left: 150px solid transparent;
-                                border-top: 50px solid rgb(253, 12, 45);
                                 right: 0;
 
-                                @media (max-width: 480px) {
+                                @media (max-width: 575px) {
                                     left: 50%;
                                     border-left: 60px solid transparent;
                                 }
                             }
-
-                            &::before {
-                                top: 100%;
-                                z-index: 99;
-                            }
-                            &::after { 
-                                top: 105%;
-                                border-top: 50px solid #313131 
-                            }
                         }
                         &.middle {
                             height: 100px;
+                            margin-top: -50px;
 
                             &::before, &::after{
                                 content: "";
                                 position: absolute;
                                 background-color: rgb(253, 12, 45);
-                                height: 50px;
+                                height: 52px;
                                 width: 50px;
                             }
-                            &::before { left: -2% }
-                            &::after { right: -3%; z-index: 99; }
+                            &::before { left: -3%; margin-top: 48px }
+                            &::after { right: -3%; z-index: 99; margin-top: 48px }
                         }
                         &.right {
-                            height: 50px;
-
                             &::before, &::after {
-                                content: "";
-                                position: absolute;
                                 border-right: 150px solid transparent;
-                                border-top: 50px solid rgb(253, 12, 45);
                                 left: 0;
-
-                                @media (max-width: 480px) {
+                                
+                                @media (max-width: 575px) {
                                     right: 50%;
                                     border-right: 60px solid transparent;
                                 }
-                            }
-
-                            &::before {
-                                top: 100%;
-                                z-index: 99;
-                            }
-                            &::after { 
-                                top: 105%;
-                                border-top: 50px solid #313131 
                             }
                         }
                     }
@@ -576,7 +579,7 @@ body {
             .body-rs {
                 padding-top: 2%;
 
-                @media (max-width: 480px) { padding-top: 7.5%; }
+                @media (max-width: 575px) { padding-top: 7.5%; }
 
                 .rs-screen {
                     width: 95%;
@@ -587,7 +590,7 @@ body {
                     margin: 2% auto 2.5% auto;
                     box-shadow: 0 0 5px 1px #000000 inset, 0 0 4px 1px #331717;
 
-                    @media (max-width: 480px) { margin-top: 5%; }
+                    @media (max-width: 575px) { margin-top: 5%; }
 
                     .inner-screen {
                         position: relative;
@@ -634,7 +637,7 @@ body {
                                 font-size: 0.55rem;
                                 margin-top: 2%;
 
-                                @media (max-width: 480px) { margin-top: 10% }
+                                @media (max-width: 575px) { margin-top: 10% }
 
                                 .pokemon-type-badge {
                                     padding: 4px;
@@ -730,7 +733,7 @@ body {
                         margin: 2.5% auto 1% auto;
                         border-radius: 5px;
 
-                        @media (max-width: 480px) { margin-top: 5%; }
+                        @media (max-width: 575px) { margin-top: 5%; }
 
                         tr {
 
@@ -766,7 +769,7 @@ body {
                         margin: 0 auto;
                         margin-bottom: 1.5%;
 
-                        @media (max-width: 480px) { margin-top: 5%; }
+                        @media (max-width: 575px) { margin-top: 5%; }
 
                         .btn-pokemons-list {
                             width: 150px;
@@ -792,37 +795,45 @@ body {
                         width: 97.5%;
                         margin-bottom: 1.5%;
 
-                        @media (max-width: 480px) { margin-top: 3%; }
+                        @media (max-width: 575px) { margin-top: 3%; }
                         
                         .bottom-tb-btn {
                             background-color: #1d1d1b;
                             width: 70px;
                             height: 25px;
                             border-radius: 5px;
-                            margin-left: 1.2%;
+                            left: 0;
                             box-shadow: 0 0 2px 0 #c0c0c0 inset, 0 0 2px 1px #242424;
+                            position: relative;
     
                             .arrow {
                                 background-color: #1d1d1b;
                                 border-top: 8px solid transparent;
                                 border-bottom: 8px solid transparent;
                                 top: 17%;
-                                transition: all .1s;
                                 
                                 &.left {
+                                    position: absolute;
                                     border-right: 20px solid rgb(77, 77, 77);
+                                    left: 30%;
                                 }
     
                                 &.right {
+                                    position: absolute;
                                     border-left: 20px solid rgb(77, 77, 77);
+                                    right: 30%;
                                 }
                             }
     
-                            &.one { right: 8%; cursor: pointer; }
+                            &.one { 
+                                right: 8%; 
+                                cursor: pointer;  
+                            }
                             &.two { 
                                 right: 23%; cursor: pointer;
+                                margin-right: 10px;
     
-                                @media (max-width: 480px) {  right: 30% }
+                                @media (max-width: 575px) {  right: 30% }
                             }
     
                             &.disabled {
@@ -845,7 +856,7 @@ body {
                         justify-content: space-between;
                         margin: 0 auto;
 
-                        @media (max-width: 480px) { margin-top: 5%; }
+                        @media (max-width: 575px) { margin-top: 5%; }
                         
                         .white-buttons {
                             display: flex;
@@ -882,7 +893,7 @@ body {
             .footer-rs {
                 display: flex;
 
-                @media (max-width: 480px) { margin-top: 6%; }
+                @media (max-width: 575px) { margin-top: 6%; }
                 
                 .result-screen {
                     background-color: #161616;
@@ -981,14 +992,14 @@ img {
     } 
 }
 
-/* 
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {  }
 
-Huawei y 2018:
-- width: 360px
-- height: 600px
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {  }
 
-Samsung A20:
-- width: 412px
-- height: 759px
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {  }
 
-*/
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {  }

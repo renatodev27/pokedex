@@ -71,6 +71,7 @@ const app = new Vue({
         },
         obtenerPokemon(pokemonName) {
             const url = 'https://pokeapi.co/api/v2/pokemon/'+pokemonName.toLowerCase();
+            this.returnToTop();
             this.isLoading = true;
             if (synth.speaking) synth.cancel();
 
@@ -109,6 +110,7 @@ const app = new Vue({
             }
         },
         choosePokemon(data = []) {
+            this.returnToTop();
             this.searchPokemon = data['name'];
             this.obtenerPokemon(data['name']);
         },
@@ -200,6 +202,9 @@ const app = new Vue({
             }
 
             return color;
+        },
+        returnToTop() {
+            window.scroll(0, 0);
         }
     },
     created() {
