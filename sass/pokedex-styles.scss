@@ -964,9 +964,16 @@ body {
             .pokedex-left-side {
                 width: 47.5%;
                 position: absolute;
-                top: 0;
-                bottom: 0;
+                top: .8%;
+                bottom: .8%;
+                left: 0.5%;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
                 box-sizing: content-box;
+
+                .rectangle {
+                    &:first-child { border-top-left-radius: 5px; }
+                }
 
                 .lights-circles {
                     padding-top: 1%;
@@ -1026,8 +1033,8 @@ body {
                     border-radius: 5px;
                 }
 
-                &::after{ top: -14.3% } 
-                &::before { bottom: -14.3% }
+                &::after{ top: -14% } 
+                &::before { bottom: -14% }
                 .tube-middle { 
                     top: 40%; 
                     height: 105px; 
@@ -1036,11 +1043,13 @@ body {
 
             .pokedex-right-side {
                 position: absolute;
-                right: 0;
+                right: 0.5%;
                 width: 47.5%;
-                top: 0;
-                bottom: 0;
+                top: .8%;
+                bottom: .8%;
                 box-sizing: content-box;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
 
                 &::after {
                     content: "";
