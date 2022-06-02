@@ -111,12 +111,19 @@
                     <input type="text" placeholder="Buscar pokemon" @keyup.enter="obtenerPokemon(searchPokemon, false)" class="input-container" v-model="searchPokemon">
                 </div>
             </div>
+            <div class="pokedex-tube-desktop">
+                <div class="tube-middle"></div>
+            </div>
             <div class="pokedex-tube">
                 <div class="tube-middle"></div>
             </div>
             <div class="pokedex-right-side">
                 <div class="body-rs">
                     <div class="rs-header">
+                        <div class="desktop-square"></div>
+                        <div class="rs-header-desktop">
+                            <h6>POKEMONES</h6>
+                        </div>
                         <div class="rs-design-header">
                             <div class="middle-objects">
                                 <div class="light one"></div>
@@ -250,7 +257,7 @@
                                     </div>
                                 </div>
                                 <div v-else class="pokemons-list">
-                                    <table border="0" style="width: 100%">
+                                    <table class="table">
                                         <tr v-for="poke in pokemonList" @click="choosePokemon(poke)">
                                             <td align="center">
                                                 <img :src="poke.sprites.front_default" class="pokemon-table-img">
@@ -261,10 +268,10 @@
                                             <td align="center">
                                                 <span v-text="poke.base_experience + 'exp'"></span>
                                             </td>
-                                            <td align="center">
+                                            <td align="center" class="mobile">
                                                 <span v-text="poke.height + 'cm'"></span>
                                             </td>
-                                            <td align="center">
+                                            <td align="center" class="mobile">
                                                 <span v-text="poke.weight + 'kg'"></span>
                                             </td>
                                         </tr>
