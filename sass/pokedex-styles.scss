@@ -96,8 +96,15 @@ body {
                             height: 80px;
                             margin: 6% auto;
                             background-image: radial-gradient(rgb(225, 254, 255) 14%, rgb(96, 196, 221), #45cfe7);
+                            background-image: radial-gradient(rgb(225, 254, 255) 14%, rgb(40, 174, 207), #31818f);
                             border-radius: 50%;
                             box-shadow: #242424 0 0 4px -1px inset, 0 0 4px 1px #5c5c5c;
+
+                            &.animate {
+                                animation-name: flicker;
+                                animation-duration: 1s;
+                                animation-iteration-count: infinite;
+                            }
                         }
                     }
 
@@ -324,7 +331,7 @@ body {
                                     height: 40px;
                                     background-color: #222222;
                                     margin-top: -4px;
-                                    left: 34%;
+                                    left: 35.2%;
                                     z-index: 99;
                                 }
                             }
@@ -1250,6 +1257,14 @@ body {
         transform:rotate(360deg); 
         -webkit-transform: rotate(360deg); 
     } 
+}
+
+@keyframes flicker {
+    0% {background: radial-gradient(rgb(225, 254, 255) 14%, rgb(96, 196, 221), #45cfe7);}
+    25% {background: radial-gradient(rgb(225, 254, 255) 14%, rgb(40, 174, 207), #31818f);}
+    50% {background: radial-gradient(rgb(225, 254, 255) 14%, rgb(96, 196, 221), #45cfe7);}
+    75% {background: radial-gradient(rgb(225, 254, 255) 14%, rgb(40, 174, 207), #31818f);}
+    100% {background: radial-gradient(rgb(225, 254, 255) 14%, rgb(96, 196, 221), #45cfe7);}
 }
 
 // Small devices (landscape phones, 576px and up)

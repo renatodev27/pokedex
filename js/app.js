@@ -6,6 +6,7 @@ const app = new Vue({
         pokemonList: [],
         pokemon: [],
         searchPokemon: '',
+        speaking: false,
         isLoading: false,
         listLoading: true,
         screenOf: true,
@@ -47,27 +48,30 @@ const app = new Vue({
                         this.listLoading = false;
                     })
                 })
-            });
+            })
         },
         populateVoiceList() {
             this.voices = synth.getVoices();
 
             this.voices.map( (voice) => {
-                if (voice.voiceURI === 'Google UK English Female') {
+                if (voice.voiceURI === 'Google Español') {
                     this.choosen_voice = voice.name;
                 }
             });
         },
-        functionWelcomeTalk(text){
+        functionWelcomeTalk(text) {
+            this.speaking = true;
             let utterance = new SpeechSynthesisUtterance(text);
             utterance.pitch = 0.5;
 
             for (let i = 0; i < this.voices.length; i++) {
-
                 if (this.voices[i].name === this.choosen_voice) utterance.voice = this.voices[i];
             }
 
             synth.speak(utterance);
+            utterance.addEventListener('end', (event) => {
+                this.speaking = false;
+            });
         },
         obtenerPokemon(pokemonName) {
             const url = 'https://pokeapi.co/api/v2/pokemon/'+pokemonName.toLowerCase();
@@ -100,7 +104,7 @@ const app = new Vue({
                         this.isLoading = false;
                         this.screenOf = true;
                         this.searched = false;
-                        this.functionWelcomeTalk('No pokémon found');
+                        this.functionWelcomeTalk('Pokémon no encontrado');
                     }
                 });
             }
@@ -153,7 +157,8 @@ const app = new Vue({
                 }
             })
 
-            this.functionWelcomeTalk(` Has encontrado un ${pokeName}. ${hp} ${attack} y ${defense} `)
+            this.functionWelcomeTalk(` Has encontrado un ${pokeName}. ${hp} ${attack} y ${defense}. 
+                ¿Quieres capturarlo?`)
         },
         getPokemonsTypes() {
             const url = 'https://pokeapi.co/api/v2/type';
@@ -205,16 +210,22 @@ const app = new Vue({
         },
         returnToTop() {
             window.scroll(0, 0);
+        },
+        onWelcome() {
+            this.functionWelcomeTalk("Hi trainer. I'm pokédex N 782. To begin; please select a pokemon from the list");
         }
     },
     created() {
         this.getPokemonsTypes();
         this.listarPokemones();
     },
-    mounted() {
+    beforeMount() {
         if (synth.onvoiceschanged !== undefined) {
             synth.onvoiceschanged = () => this.populateVoiceList();
         }
+    },
+    mounted() {
+        this.onWelcome();
     }
 })
 
