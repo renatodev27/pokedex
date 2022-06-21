@@ -1,4 +1,5 @@
 let synth = window.speechSynthesis;
+const musicBattle = new Audio('./src/pokemon_battle.mp3');
 
 const app = new Vue({
     el: '#app',
@@ -9,6 +10,7 @@ const app = new Vue({
         speaking: false,
         isLoading: false,
         listLoading: true,
+        screenAction: undefined,
         screenOf: true,
         voices: [],
         choosen_voice: '',
@@ -25,11 +27,36 @@ const app = new Vue({
         statSpdef: 0,
         pokeSpeed: '',
         statSpeed: 0,
-        pokemonTypes: [],
+        pokemonTypes: new Array,
         prev: null,
         next: null,
+        playerPokemon: new Object,
+        playerHelath: undefined,
+        playerAttack: undefined,
+        playerDefense: undefined,
+        battleBtn: false,
+        captureBtn: false,
+        battleIntroduction: true,
+        myPokemons: new Array
     },
     methods: {
+        getPlayerPokemon() {
+            const url = 'https://pokeapi.co/api/v2/pokemon/pikachu';
+            fetch(url).then( response => response.json() )
+            .then( (data) => {
+                this.playerPokemon = data;
+
+                this.playerPokemon.moves.map( move => {
+                    const moveName = move.move.name.replace('-', ' ');
+                    const finalMoveName = `${moveName.charAt(0).toUpperCase()}${moveName.substr(1)}`
+                    move.move.name = finalMoveName;
+                });
+
+                this.getPokemonStats(this.playerPokemon.stats, undefined, false);
+                //console.log(this.playerPokemon);
+            })
+            .catch( error => console.log(error));
+        },
         listarPokemones(url) {
             if (!this.next) url = 'https://pokeapi.co/api/v2/pokemon';
             if (!this.listLoading) this.listLoading = true;
@@ -42,6 +69,8 @@ const app = new Vue({
                 
                 pokemons.results.map( (pokemon) => {
                     const data_url = 'https://pokeapi.co/api/v2/pokemon/'+pokemon.name;
+
+                    if (pokemon.name === 'charmander') this.myPokemons.push(pokemon);
 
                     fetch(data_url).then (response => response.json()).then ( (pokedet) => {
                         this.pokemonList.push(pokedet);
@@ -69,7 +98,7 @@ const app = new Vue({
             }
 
             synth.speak(utterance);
-            utterance.addEventListener('end', (event) => {
+            utterance.addEventListener('end', () => {
                 this.speaking = false;
             });
         },
@@ -93,19 +122,19 @@ const app = new Vue({
                     })
 
                     this.getPokemonStats(this.pokemon.stats, this.pokemon.name);
+
                     if (this.searchPokemon != '') this.searchPokemon = '';
                     this.searched = true;
+                    this.battleBtn = true;
                     this.isLoading = false;
-                    
                 })
                 .catch( (error) => {
-                    if (error) {
-                        this.pokemon = [];
-                        this.isLoading = false;
-                        this.screenOf = true;
-                        this.searched = false;
-                        this.functionWelcomeTalk('Pokémon no encontrado');
-                    }
+                    this.pokemon = [];
+                    this.isLoading = false;
+                    this.screenOf = true;
+                    this.searched = false;
+                    this.functionWelcomeTalk('No pokémon found');
+                    console.log(error);
                 });
             }
             else {
@@ -113,31 +142,58 @@ const app = new Vue({
                 this.isLoading = false;
             }
         },
+        pokemonBattle() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            if (synth.speaking) synth.cancel();
+            this.isLoading = true;
+            this.listLoading = true;
+            this.battleBtn = false;
+            this.captureBtn = true;
+            musicBattle.play();
+
+            setTimeout( () => {
+                this.isLoading = false;
+                this.listLoading = false;
+                this.screenAction = 'Battle';
+
+                if (this.battleIntroduction) {
+                    this.functionWelcomeTalk('Has entrado en una batalla pokemon');
+                    this.functionWelcomeTalk('Para realizar un ataque selecciona una de las opciones de ataque de tu pokemon');
+                }
+            }, 800);
+
+            const height = document.body.scrollHeight;
+
+            setTimeout( () => {
+                if (screen.width < 992 && this.battleIntroduction) window.scrollTo({top: height, behavior: 'smooth'});
+                this.battleIntroduction = false;
+            }, 5000)
+        },
         choosePokemon(data = []) {
             this.returnToTop();
             this.searchPokemon = data['name'];
             this.obtenerPokemon(data['name']);
         },
-        getPokemonStats(listStats, pokeName) {
-            let hp, attack, defense, sp_attack, sp_defense, speed;
+        getPokemonStats(listStats, pokeName, speak = true) {
+            let hpText, attackText, defenseText, sp_attack, sp_defense, speed;
 
             listStats.map( (stat) => {
 
                 switch (stat.stat.name) {
                     case 'hp' : 
-                        hp = `Tiene ${stat.base_stat} de salud.`;
+                        hpText = `Tiene ${stat.base_stat} de salud.`;
                         this.pokeHp =  'Health';
-                        this.statHp = stat.base_stat;
+                        speak ? this.statHp = stat.base_stat : this.playerHelath = stat.base_stat;
                     break;
                     case 'attack' : 
-                        attack = `${stat.base_stat} de ataque.`; 
+                        attackText = `${stat.base_stat} de ataque.`; 
                         this.pokeAttack = `${stat.stat.name.charAt(0).toUpperCase()}${stat.stat.name.substr(1)}`;
-                        this.statAttack = stat.base_stat;
+                        speak ? this.statAttack = stat.base_stat : this.playerAttack = stat.base_stat;
                     break;
                     case 'defense' : 
-                        defense = `${stat.base_stat} de defensa.`; 
+                        defenseText = `${stat.base_stat} de defensa.`; 
                         this.pokeDefense = `${stat.stat.name.charAt(0).toUpperCase()}${stat.stat.name.substr(1)}`;
-                        this.statDefense = stat.base_stat;
+                        speak ? this.statDefense = stat.base_stat : this.playerDefense = stat.base_stat;
                     break;
                     case 'special-attack' :
                         sp_attack = `Tiene ${stat.base_stat} de ataque especial.`; 
@@ -157,8 +213,8 @@ const app = new Vue({
                 }
             })
 
-            this.functionWelcomeTalk(` Has encontrado un ${pokeName}. ${hp} ${attack} y ${defense}. 
-                ¿Quieres capturarlo?`)
+            if (speak) this.functionWelcomeTalk(` Has encontrado un ${pokeName}. ${hpText} ${attackText} y ${defenseText}. 
+            ¿Quieres capturarlo?`);
         },
         getPokemonsTypes() {
             const url = 'https://pokeapi.co/api/v2/type';
@@ -173,6 +229,15 @@ const app = new Vue({
             this.screenOf = true;
             this.searched = false;
             this.pokemon = [];
+            this.cancelar();
+            this.battleBtn = false;
+        },
+        cancelar() {
+            this.screenAction = undefined;
+            this.battleBtn = true;
+            this.captureBtn = false;
+            musicBattle.pause();
+            musicBattle.currentTime = 0;
         },
         nextPrevPokemonList(action) {
             switch (action) {
@@ -209,15 +274,23 @@ const app = new Vue({
             return color;
         },
         returnToTop() {
-            window.scroll(0, 0);
+            if (screen.width < 992) window.scrollTo({top: 0, behavior: 'smooth'});
         },
         onWelcome() {
             this.functionWelcomeTalk("Hi trainer. I'm pokédex N 782. To begin; please select a pokemon from the list");
+        },
+        maximize() {
+            let elem = document.documentElement;
+            if (elem.requestFullscreen) elem.requestFullscreen();
+            else if (elem.mozRequestFullScreen) elem.mozRequestFullScreen();
+            else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+            else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
         }
     },
     created() {
         this.getPokemonsTypes();
         this.listarPokemones();
+        this.getPlayerPokemon();
     },
     beforeMount() {
         if (synth.onvoiceschanged !== undefined) {
@@ -225,7 +298,7 @@ const app = new Vue({
         }
     },
     mounted() {
-        this.onWelcome();
+        //this.onWelcome();
     }
 })
 

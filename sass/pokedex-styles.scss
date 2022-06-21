@@ -11,6 +11,10 @@ body {
     font-family: 'Press Start 2P', cursive;
     overflow-x: hidden;
 
+    button, a {
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+
     @media (min-width: 992px) { overflow-y: hidden }
 
     .pokedex-body {
@@ -158,7 +162,7 @@ body {
                         position: relative;
                         
                         &.on {
-                            background: linear-gradient(130deg, #cac9c9 0%, #fff, rgb(235, 235, 235));
+                            background: linear-gradient(130deg, #cde0e0 0%, rgb(221, 253, 250), rgb(206, 235, 231));
                             box-shadow: #1b1b1b 0 0 5px 2px inset;
                             transition: all .3s;
                         }
@@ -166,6 +170,135 @@ body {
                             background-color: #424242;
                             box-shadow: rgb(0, 0, 0) 0 0 5px 2px inset;
                             transition: all .3s;
+                        }
+
+                        .battle-screen-container {
+
+                            .enemy-content, .player-content {
+                                .pokemon-stats { margin: 15px 15px; width: 40% }
+                            }
+
+                            .enemy-content {
+                                .pokemon-stats { top: 0; left: 0 }
+                                .pokemon-floor { top: 51.5px; right: 55px}
+
+                                @media (max-width: 450px) {
+                                    .pokemon-floor { top: 95px; right: 25px}
+                                    .pokemon-stats { padding: 10px 10px 3px 10px }
+                                }
+                            }
+
+                            .player-content {
+                                .pokemon-stats { bottom: 0; right: 0 }
+                                .pokemon-floor { bottom: 15px; left: 45px}
+
+                                @media (max-width: 450px) {
+                                    .pokemon-floor { bottom: 35px; left: 10px;}
+                                }
+
+                                .pokemon-stats { padding: 10px 10px 3px 10px }
+
+                                .player-hp {
+                                    font-size: 0.7rem;
+                                    font-weight: 100;
+                                    margin-top: 5px;
+                                    text-align: right;
+
+                                    @media (max-width: 450px) {
+                                        display: flex;
+                                        justify-content: space-between;
+
+                                        .lvl-mobile { margin-top: 0 !important }
+                                    }
+                                }
+                            }
+
+                            .enemy-pokemon-img, .player-pokemon-img {
+                                width: 105px;
+                                height: 105px;
+                                position: absolute;
+                                z-index: 99;
+                            }
+                            .enemy-pokemon-img { top: -5px; right: 90px }
+                            .player-pokemon-img { bottom: 5px; left: 80px }
+
+                            @media (max-width: 450px) {
+                                .enemy-pokemon-img { top: 32px; right: 35px }
+                                .player-pokemon-img { bottom: 25px; left: 30px }
+                            }
+
+                            .pokemon-floor {
+                                width: 175px;
+                                height: 42px;
+                                border-radius: 100%;
+                                background-color: #62ff62d3;
+                                box-shadow: 0 0 2px 3px #35ad63;
+                                position: absolute;
+
+                                @media (max-width: 450px) {
+                                    width: 140px;
+                                    height: 40px;
+                                }
+                            }
+
+                            .pokemon-stats {
+                                padding: 10px;
+                                background-color: rgb(255, 255, 255);
+                                box-shadow: 0 0 3px 2px #333333;
+                                border-radius: 15px 5px 15px 5px;
+                                position: absolute;
+
+                                h6 { 
+                                    font-weight: 100; 
+
+                                    &.lvl-desktop { display: block }
+                                    &.lvl-mobile { display: none }
+
+                                    @media (max-width: 450px) { 
+                                        &.lvl-desktop { display: none !important }
+                                        &.lvl-mobile { display: block !important; margin-top: 5px; font-size: 0.5rem !important; }
+                                    }
+                                }
+                                
+                                .info, .bar-content {
+                                    display: flex;
+                                    justify-content: space-between;
+                                }
+
+                                .bar-content {
+                                    background-color: #2a323d;
+                                    padding: 2px 2px 2px 5px;
+                                    border-radius: 50px;
+                                    margin-top: 7px;
+                                    width: 100%;
+
+                                    h5 { 
+                                        margin-top: 2px; 
+                                        color: gradie;
+                                        background: -webkit-linear-gradient(270deg, rgb(240, 204, 128) 40%, rgb(230, 170, 42));
+                                        background-clip: text;
+                                        -webkit-background-clip: text;
+                                        -webkit-text-fill-color: transparent;
+                                        font-size: 0.75rem;
+                                    }
+
+                                    .hpbar {
+                                        width: 100%;
+                                        height: 0.65rem;
+                                        background-color: #fff;
+                                        border-radius: 50px;
+                                        margin-left: 3px;
+                                        padding: 2px;
+
+                                        .inner-bar {
+                                            width: 100%;
+                                            height: 100%;
+                                            background-color: #11ff9c;
+                                            border-radius: 50px;
+                                        }
+                                    }
+                                }
+                            }
                         }
 
                         .principal-pokemon-img-container {
@@ -269,36 +402,108 @@ body {
 
                     .footer-circles {
                         .circle {
-                            background-color: #cacaca;
                             width: 40px;
                             height: 40px;
                             border-radius: 50%;
-                            box-shadow: 0 0 14px 8px inset #ee6d04, 0 0 3px 1px #202020;
+                            background-color: #202020;
+                            box-shadow: 0 0 3px 1px inset #7c7c7c, 0 0 3px 1px #202020;
 
                             &.two {
-                                margin-top: 20px;
-                                background-color: #ffffff !important;
-                                box-shadow: 0 0 14px 8px inset #0485ee, 0 0 3px 1px #202020;
+                                margin-top: 10px;
                             }
                         }
                     }
 
                     .buttons-content {
-                        display: flex;
+                        .btn-battle, .btn-capture, .btn-my-pokemons, .btn-cancel {
+                            box-shadow: 0 0 3px 2px rgb(102, 59, 18);
+                            color: rgb(255, 255, 255);
+                        }
 
-                        .button-bar {
-                            width: 55px;
-                            height: 13px;
-                            border-radius: 10px;
-                            box-shadow: 1px 1px 4px 1px #383838;
-                            margin: 15px;
-        
-                            &.first { background-color: #11ff4d }
-                            &.second { background-color: #11b4ff }
-                            &.third { background-color: #ff7b53 }
-                            &.fourth { background-color: #a967df }
-                            &.fifth { background-color: #54c49f }
-                            &.sixth { background-color: #e6bd64 }
+                        .flex-buttons {
+                            display: flex;
+                            justify-content: space-between;
+
+                            @media (max-width: 575px) {
+                                display: block;
+                                text-align: center;
+
+                                .btn-battle, .btn-capture { margin-right: 0 !important; margin-bottom: 5px; }
+                                .btn-my-pokemons { margin-left: 0 !important }
+                            }
+
+                            .btn-capture, .btn-battle { margin-right: 5px; }
+
+                            .btn-battle {
+                                background-color: #925ed6;
+
+                                &:hover { background-color: #8744df; transition: all .3s }
+                                &:active { background-color: #925ed6; box-shadow: 0 0 3px 3px #242424 inset !important; }
+                            }
+                            .btn-capture {
+                                background-color: #fd808a;
+
+                                &:hover { background-color: #f75e6b; transition: all .3s }
+                                &:active { background-color: #fd808a; box-shadow: 0 0 3px 3px #242424 inset !important }
+                            }
+                            .btn-my-pokemons {
+                                margin-left: 5px;
+                                background-color: #fff7e7;
+                                color: #463b3b;
+
+                                &:hover { background-color: #ffffff; transition: all .3s }
+                                &:active { background-color: #fff7e7; box-shadow: 0 0 3px 3px #242424 inset !important }
+                            }
+                        }
+
+                        .btn-cancel { 
+                            margin-top: 10px;
+                            background-color: #ff6b15;
+
+                            &:hover { background-color: #fc5e02; transition: all .3s }
+                            &:active { background-color: #ff6b15; box-shadow: 0 0 3px 3px #242424 inset !important }
+
+                            @media (max-width: 575px) { margin-top: 5px !important }
+                        }
+                        
+                        @media (min-width: 480px) and (max-width: 575px) {
+                            margin-top: -10px;
+                        }
+
+                        @media (max-width: 399px) { text-align: center}
+
+                        button {
+                            border-radius: 5px;
+                            padding: 15px 50px 15px 50px;
+                            width: 100%;
+                            white-space: nowrap;
+                            border: none;
+                            cursor: pointer;
+                            font-family: 'Press Start 2P', cursive;
+
+                            @media (min-width: 480px) and (max-width: 575px) {
+                                padding: 15px 25px 15px 25px;
+                            }
+                            @media (min-width: 400px) and (max-width: 480px) {
+                                padding: 12px 0 12px 0;
+                            }
+                            @media (max-width: 399px) {
+                                padding: 12px 0 12px 0;
+                                width: 95%;
+                                font-size: 0.8rem;
+                            }
+                            @media (max-width: 357px) {
+                                padding: 12px 0 12px 0;
+                                width: 95% !important;
+                                font-size: 0.7rem;
+                            }
+
+                            &.disabled {
+                                background-color: #727272 !important;
+                                box-shadow: 0 0 3px 3px #242424 inset !important;
+                                color: #adadad !important;
+                                cursor: not-allowed !important;
+                            }
                         }
                     }
 
@@ -614,24 +819,113 @@ body {
                         position: relative;
                         width: 99%;
                         height: 170px;
-                        background: radial-gradient(rgb(228, 228, 228) 0%, #ffffff, rgb(223, 222, 222));
                         border-radius: 5px;
                         box-shadow: 0 0 5px 1px #000000;
                         margin: 0 auto;
 
-                        ::-webkit-scrollbar {
-                            width: 8px;
-                        }
+                        ::-webkit-scrollbar { width: 8px }
                         ::-webkit-scrollbar-track {
                             background: transparent;
-                            /* border-left: 4px solid transparent;
-                            border-right: 3.5px solid transparent; */
                             border-radius: 4px;
                             box-shadow: inset 0 0 5px #acacacee;
                         }
                         ::-webkit-scrollbar-thumb {
                             border-radius: 10px;
                             background-color: #98aad1d8;
+                        }
+
+                        .battle-screen {
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            
+                            .options-bckg {
+                                height: 73%;
+                                margin-top: -0.5%;
+                                background: radial-gradient(rgb(228, 228, 228) 0%, #ffffff, rgb(223, 222, 222));
+                                box-shadow: 0 0 3px 4px #463a7e inset, 0 0 3px 0 #500681, 0 0 3px 6px inset #160024;
+                                border-top-left-radius: 5px;
+                                border-top-right-radius: 5px;
+
+                                .options-content {
+                                    position: relative;
+                                    overflow-x: hidden;
+                                    height: 90%;
+                                    width: 98%;
+                                    top: 5%;
+                                    margin: 0 auto;
+
+                                    &::-webkit-scrollbar { height: 10px !important }
+    
+                                    ul.options {
+                                        position: relative;
+                                        display: flex;
+                                        height: 100%;
+                                        width: 100%;
+                                        flex-wrap: wrap;
+                                        list-style: none;
+                                        
+                                        li {
+                                            width: 50%;
+                                            margin: 0 auto;
+                                            text-align: center;
+
+                                            button {
+                                                font-family: 'Press Start 2P', cursive;
+                                                border: none;
+                                                white-space: nowrap;
+                                                background-color: #fff7f0;
+                                                box-shadow: 0 0 3px 1px #242424, 0 0 3px 1px #ccc inset;
+                                                width: 90%;
+                                                cursor: pointer;
+                                                text-align: left;
+                                                position: relative;
+                                                padding: 12px;
+                                                margin-bottom: 15px;
+                                                margin-top: 15px;
+                                                border-radius: 10px;
+                                                
+                                                @media (max-width: 767px) {
+                                                    margin-bottom: 10px;
+                                                    margin-top: 10px;
+                                                }
+    
+                                                h6 { 
+                                                    font-size: 0.85rem;
+                                                    color: rgb(59, 59, 59);
+                                                    font-weight: 100;
+                                                    text-align: center;
+                                                    @media (max-width: 480px) { font-size: 0.8rem !important }
+                                                    @media (max-width: 360px) { font-size: 0.55rem !important }
+                                                }
+
+                                                &:active {
+                                                    background-color: #e4e4e4;
+                                                    box-shadow: 0 0 3px 2px #242424 inset;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            .questions-text-content {
+                                height: 30%;
+                                background-color: #2e5f86;
+                                box-shadow: 0 0 3px 4px #c9a712 inset, 0 0 3px 0 #c9a712, 0 0 3px 5px inset rgb(51, 32, 3);
+                                border-bottom-left-radius: 5px;
+                                border-bottom-right-radius: 5px;
+
+                                h6 { 
+                                    color: #fff;
+                                    padding: 20px;
+                                    font-size: 1rem;
+                                    font-weight: 100;
+
+                                    @media (max-width: 480px) { font-size: 0.9rem !important }
+                                    @media (max-width: 360px) { font-size: 0.7rem !important }
+                                }
+                            }
                         }
 
                         .pokemon-stats {
@@ -743,37 +1037,6 @@ body {
                                      }
                                 }
                             }
-                            /* ul {
-                                list-style: none;
-
-                                .pokemon-table-img {
-                                    width: 60px;
-                                    height: 50px;
-                                    padding:0;
-                                    margin:0;
-                                    object-fit: contain;
-                                    object-position: center;
-                                }
-                                
-                                a { 
-                                    color: rgb(48, 48, 48); 
-                                    text-decoration: none; 
-                                    display: flex;
-
-                                    span { 
-                                        margin-top: 20px;
-                                        margin-left: 10px;
-                                        margin-right: 10px;
-                                    }
-
-                                    &:hover {
-                                        background-color: #ffe866;
-                                        box-shadow: 0 0 2px 0 #645d34;
-                                        transform: translate(5px);
-                                        transition: all .3s;
-                                    }
-                                }
-                            } */
                         }
                     }
                 }
@@ -821,22 +1084,32 @@ body {
                         margin: 0 auto;
                         margin-bottom: 1.5%;
 
-                        @media (max-width: 575px) { margin-top: 5%; }
+                        @media (max-width: 575px) { margin-top: 3%; }
 
                         .btn-pokemons-list {
                             width: 150px;
                             margin-top: 10px;
                             padding: 10px;
-                            color: rgb(236, 236, 236);
-                            background: linear-gradient(to left, #ff6b15 40%, #ff6b15 50%, #ff8c49);
+                            color: rgb(255, 255, 255);
+                            background: linear-gradient(to left, #48c9a2 40%, #1db688);
                             border-radius: 5px;
                             text-align: center;
                             box-shadow: 0 0 3px 2px rgb(134, 65, 0);
                             transition: all .3s;
+                            border: none;
                             cursor: pointer;
+                            font-family: 'Press Start 2P', cursive;
         
-                            h6 {
-                                font-size: 0.65rem;
+                            h6 { font-size: 0.65rem }
+
+                            &:hover { background-color: #3eb491; transition: all .3s }
+                            &:active { background-color: #48c9a2; box-shadow: 0 0 3px 3px #242424 inset !important; }
+
+                            &.disabled {
+                                background: linear-gradient(to left, #727272, #727272);
+                                color: #adadad;
+                                box-shadow: 0 0 3px 2px rgb(31, 31, 31) inset;
+                                cursor: not-allowed;
                             }
                         }
                     }
