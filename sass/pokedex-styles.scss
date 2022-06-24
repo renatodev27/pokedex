@@ -13,6 +13,8 @@ body {
 
     button, a {
         -webkit-tap-highlight-color: rgba(0,0,0,0);
+        font-family: 'Press Start 2P', cursive;
+        cursor: pointer;
     }
 
     @media (min-width: 992px) { overflow-y: hidden }
@@ -162,7 +164,7 @@ body {
                         position: relative;
                         
                         &.on {
-                            background: linear-gradient(130deg, #cde0e0 0%, rgb(221, 253, 250), rgb(206, 235, 231));
+                            background: linear-gradient(-330deg, rgb(212, 212, 212) 5%, rgb(255, 255, 255), rgb(212, 212, 212));
                             box-shadow: #1b1b1b 0 0 5px 2px inset;
                             transition: all .3s;
                         }
@@ -172,7 +174,7 @@ body {
                             transition: all .3s;
                         }
 
-                        .battle-screen-container {
+                        .battle-screen-content {
 
                             .enemy-content, .player-content {
                                 .pokemon-stats { margin: 15px 15px; width: 40% }
@@ -244,7 +246,7 @@ body {
                             .pokemon-stats {
                                 padding: 10px;
                                 background-color: rgb(255, 255, 255);
-                                box-shadow: 0 0 3px 2px #333333;
+                                box-shadow: 0 0 3px 1px #242424;
                                 border-radius: 15px 5px 15px 5px;
                                 position: absolute;
 
@@ -295,6 +297,56 @@ body {
                                             height: 100%;
                                             background-color: #11ff9c;
                                             border-radius: 50px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .my-pokemons-screen-content {
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            
+                            ul.my-pokemons-list {
+                                display: flex;
+                                list-style: none;
+                                width: 98.6%;
+                                height: 99%;
+                                overflow-x: scroll ;
+                                margin: 0 auto;
+
+                                &::-webkit-scrollbar { height: 4px }
+                                &::-webkit-scrollbar-track { background: transparent }
+                                &::-webkit-scrollbar-thumb {
+                                    border-radius: 10px;
+                                    background-color: #081631d8;
+                                }
+                                
+                                li {
+                                    height: 100%;
+                                    padding-left: 10px;
+                                    padding-right: 10px;
+                                    vertical-align: middle;
+
+                                    button {
+                                        width: 120px;
+                                        padding: 10px;
+                                        border-radius: 5px;
+                                        border: none;
+                                        box-shadow: 0 0 2px 2px #8d8d8d;
+                                        background-color: rgb(253, 255, 218);
+                                        top: 50%;
+                                        position: relative;
+                                        transform: translateY(-50%);
+
+                                        img {
+                                            width: 100px;
+                                            height: 100px;
+                                        }
+
+                                        &:active {
+                                            box-shadow: 0 0 2px 2px #8d8d8d inset;
                                         }
                                     }
                                 }
@@ -415,94 +467,75 @@ body {
                     }
 
                     .buttons-content {
-                        .btn-battle, .btn-capture, .btn-my-pokemons, .btn-cancel {
-                            box-shadow: 0 0 3px 2px rgb(102, 59, 18);
-                            color: rgb(255, 255, 255);
-                        }
+                        @media (max-width: 480px) { width: 60% }
 
-                        .flex-buttons {
+                        ul.flex-buttons {
+                            list-style: none;
                             display: flex;
-                            justify-content: space-between;
+                            flex-wrap: wrap;
 
-                            @media (max-width: 575px) {
-                                display: block;
-                                text-align: center;
-
-                                .btn-battle, .btn-capture { margin-right: 0 !important; margin-bottom: 5px; }
-                                .btn-my-pokemons { margin-left: 0 !important }
+                            @media (max-width: 480px) {
+                                justify-content: center;
+                                margin-top: -5px;
                             }
 
-                            .btn-capture, .btn-battle { margin-right: 5px; }
+                            li {
+                                width: 50%;
 
-                            .btn-battle {
-                                background-color: #925ed6;
+                                @media (max-width: 480px) { 
+                                    width: 48%;
+                                    text-align: center;
+                                }
 
-                                &:hover { background-color: #8744df; transition: all .3s }
-                                &:active { background-color: #925ed6; box-shadow: 0 0 3px 3px #242424 inset !important; }
-                            }
-                            .btn-capture {
-                                background-color: #fd808a;
+                                button {
+                                    border-radius: 5px;
+                                    padding: 15px 0;
+                                    width: 90%;
+                                    height: auto;
+                                    margin: 0 7px 10px 7px;
+                                    border: none;
+                                    cursor: pointer;
+                                    transform: translateY(10%);
+                                    color: #fff;
+                                    box-shadow: 0 0 2px 1px inset #363636;
+                                    font-size: 0.65rem !important;
 
-                                &:hover { background-color: #f75e6b; transition: all .3s }
-                                &:active { background-color: #fd808a; box-shadow: 0 0 3px 3px #242424 inset !important }
-                            }
-                            .btn-my-pokemons {
-                                margin-left: 5px;
-                                background-color: #fff7e7;
-                                color: #463b3b;
+                                    @media (max-width: 480px) {
+                                        line-height: 10px;
+                                        height: 80%;
+                                        font-size: 0.5rem !important;
+                                    }
+                                    
+                                    &.disabled {
+                                        background-color: #727272 !important;
+                                        box-shadow: 0 0 1px 2px #242424 inset !important;
+                                        color: #adadad !important;
+                                        //border: 1px solid #242424;
+                                        cursor: not-allowed !important;
 
-                                &:hover { background-color: #ffffff; transition: all .3s }
-                                &:active { background-color: #fff7e7; box-shadow: 0 0 3px 3px #242424 inset !important }
-                            }
-                        }
-
-                        .btn-cancel { 
-                            margin-top: 10px;
-                            background-color: #ff6b15;
-
-                            &:hover { background-color: #fc5e02; transition: all .3s }
-                            &:active { background-color: #ff6b15; box-shadow: 0 0 3px 3px #242424 inset !important }
-
-                            @media (max-width: 575px) { margin-top: 5px !important }
-                        }
-                        
-                        @media (min-width: 480px) and (max-width: 575px) {
-                            margin-top: -10px;
-                        }
-
-                        @media (max-width: 399px) { text-align: center}
-
-                        button {
-                            border-radius: 5px;
-                            padding: 15px 50px 15px 50px;
-                            width: 100%;
-                            white-space: nowrap;
-                            border: none;
-                            cursor: pointer;
-                            font-family: 'Press Start 2P', cursive;
-
-                            @media (min-width: 480px) and (max-width: 575px) {
-                                padding: 15px 25px 15px 25px;
-                            }
-                            @media (min-width: 400px) and (max-width: 480px) {
-                                padding: 12px 0 12px 0;
-                            }
-                            @media (max-width: 399px) {
-                                padding: 12px 0 12px 0;
-                                width: 95%;
-                                font-size: 0.8rem;
-                            }
-                            @media (max-width: 357px) {
-                                padding: 12px 0 12px 0;
-                                width: 95% !important;
-                                font-size: 0.7rem;
-                            }
-
-                            &.disabled {
-                                background-color: #727272 !important;
-                                box-shadow: 0 0 3px 3px #242424 inset !important;
-                                color: #adadad !important;
-                                cursor: not-allowed !important;
+                                        &:active { 
+                                            box-shadow: 0 0 1px 2px inset #242424 !important;
+                                        }
+                                    }
+                                }
+    
+                                .btn-battle {
+                                    background-color: #925ed6;
+                                    &:active { background-color: #783ec5; box-shadow: 0 0 2px 2px #242424 inset !important; }
+                                }
+                                .btn-capture {
+                                    background-color: #fd808a;
+                                    &:active { background-color: #fc4353; box-shadow: 0 0 2px 2px #242424 inset !important }
+                                }
+                                .btn-my-pokemons {
+                                    background-color: #fff7e7;
+                                    color: #463b3b;
+                                    &:active { background-color: #fce9c3; box-shadow: 0 0 2px 2px #242424 inset !important }
+                                }
+                                .btn-cancel { 
+                                    background-color: #ff6b15;
+                                    &:active { background-color: #ff4c15; box-shadow: 0 0 2px 2px #242424 inset !important }
+                                }
                             }
                         }
                     }
@@ -573,21 +606,29 @@ body {
                 .input-container {
                     width: 100%;
                     height: 40px;
-                    background-color: #fbff00;
-                    border: 1px solid #fbff00;
+                    background-color: #f0ff25;
+                    border: 1px solid #242424;
                     border-radius: 7px;
                     text-align: center;
-                    transition: all .3s;
-                    box-shadow: 1px 1px 3px 1px #555454;
+                    box-shadow: 0 0 2px 1px #242424 inset;
                     font-family: 'Press Start 2P', cursive;
                     font-size: 0.55rem;
                     color: #242424;
                     margin-bottom: 1.5%;
 
+                    &:disabled {
+                        background-color: #535809;
+
+                        &:hover {
+                            cursor: not-allowed;
+                        }
+                    }
+
                     &:focus {
                         outline: none;
-                        border: 1px solid #f8d57d;
-                        box-shadow: 0 0 3px 1px #ffbb00;
+                        background-color: #fbff00;
+                        box-shadow: 0 0 3px 1px #fbff00 inset;
+                        transition: all .3s;
                     }
 
                     @media (max-width: 575px) { margin-top: 6.5%; margin-bottom: 7.5% }
@@ -596,7 +637,6 @@ body {
         }
 
         .pokedex-tube {
-            //background: linear-gradient(to left, rgb(151, 23, 23), rgb(255, 44, 44), rgb(151, 23, 23));
             background: linear-gradient(72deg, rgb(228, 10, 39), rgb(255, 42, 70), rgb(228, 10, 39));
             height: 50px;
             position: relative;
@@ -834,75 +874,84 @@ body {
                             background-color: #98aad1d8;
                         }
 
+                        .textIntro {
+                            line-height: 30px;
+                            color: #333333;
+
+                            p {
+                                font-size: 1.2rem;
+                                padding: 20px;
+
+                                @media (max-width: 480px) {
+                                    font-size: 0.85rem !important;
+                                    padding: 10px 15px;
+                                }
+                            }
+                        }
+
                         .battle-screen {
                             width: 100%;
                             height: 100%;
                             position: absolute;
                             
-                            .options-bckg {
-                                height: 73%;
-                                margin-top: -0.5%;
-                                background: radial-gradient(rgb(228, 228, 228) 0%, #ffffff, rgb(223, 222, 222));
-                                box-shadow: 0 0 3px 4px #463a7e inset, 0 0 3px 0 #500681, 0 0 3px 6px inset #160024;
+                            .options-content {
+                                position: relative;
+                                overflow-x: hidden;
+                                height: 90%;
+                                width: 100%;
+                                top: 0;
+                                margin: 0 auto;
                                 border-top-left-radius: 5px;
                                 border-top-right-radius: 5px;
+                                height: 73%;
 
-                                .options-content {
+                                &::-webkit-scrollbar { height: 10px !important }
+
+                                ul.options {
                                     position: relative;
-                                    overflow-x: hidden;
-                                    height: 90%;
-                                    width: 98%;
-                                    top: 5%;
-                                    margin: 0 auto;
+                                    display: flex;
+                                    height: 100%;
+                                    width: 100%;
+                                    flex-wrap: wrap;
+                                    list-style: none;
+                                    
+                                    li {
+                                        width: 50%;
+                                        margin: 0 auto;
+                                        text-align: center;
 
-                                    &::-webkit-scrollbar { height: 10px !important }
-    
-                                    ul.options {
-                                        position: relative;
-                                        display: flex;
-                                        height: 100%;
-                                        width: 100%;
-                                        flex-wrap: wrap;
-                                        list-style: none;
-                                        
-                                        li {
-                                            width: 50%;
-                                            margin: 0 auto;
-                                            text-align: center;
+                                        button {
+                                            font-family: 'Press Start 2P', cursive;
+                                            border: none;
+                                            white-space: nowrap;
+                                            background-color: #fff;
+                                            box-shadow: 0 0 2px 1px inset #363636;
+                                            width: 95%;
+                                            cursor: pointer;
+                                            text-align: left;
+                                            position: relative;
+                                            padding: 12px;
+                                            margin-bottom: 15px;
+                                            margin-top: 15px;
+                                            border-radius: 10px;
+                                            
+                                            @media (max-width: 767px) {
+                                                margin-bottom: 10px;
+                                                margin-top: 10px;
+                                            }
 
-                                            button {
-                                                font-family: 'Press Start 2P', cursive;
-                                                border: none;
-                                                white-space: nowrap;
-                                                background-color: #fff7f0;
-                                                box-shadow: 0 0 3px 1px #242424, 0 0 3px 1px #ccc inset;
-                                                width: 90%;
-                                                cursor: pointer;
-                                                text-align: left;
-                                                position: relative;
-                                                padding: 12px;
-                                                margin-bottom: 15px;
-                                                margin-top: 15px;
-                                                border-radius: 10px;
-                                                
-                                                @media (max-width: 767px) {
-                                                    margin-bottom: 10px;
-                                                    margin-top: 10px;
-                                                }
-    
-                                                h6 { 
-                                                    font-size: 0.85rem;
-                                                    color: rgb(59, 59, 59);
-                                                    font-weight: 100;
-                                                    text-align: center;
-                                                    @media (max-width: 480px) { font-size: 0.8rem !important }
-                                                    @media (max-width: 360px) { font-size: 0.55rem !important }
-                                                }
+                                            h6 { 
+                                                font-size: 0.85rem;
+                                                color: rgb(59, 59, 59);
+                                                font-weight: 100;
+                                                text-align: center;
+                                                @media (max-width: 480px) { font-size: 0.65rem !important }
+                                                @media (max-width: 360px) { font-size: 0.55rem !important }
+                                            }
 
-                                                &:active {
-                                                    background-color: #e4e4e4;
-                                                    box-shadow: 0 0 3px 2px #242424 inset;
-                                                }
+                                            &:active {
+                                                background-color: #ffefc6;
+                                                box-shadow: 0 0 2px 2px inset #242424 !important;
                                             }
                                         }
                                     }
@@ -911,19 +960,20 @@ body {
                             
                             .questions-text-content {
                                 height: 30%;
-                                background-color: #2e5f86;
-                                box-shadow: 0 0 3px 4px #c9a712 inset, 0 0 3px 0 #c9a712, 0 0 3px 5px inset rgb(51, 32, 3);
-                                border-bottom-left-radius: 5px;
-                                border-bottom-right-radius: 5px;
+                                background-color: #8a6fff;
+                                box-shadow: 0 0 2px 2px #463a7e inset, 0 0 2px 4px inset #201941;
+                                border-radius: 5px;
+                                width: 101%;
+                                margin-left: -0.5%;
 
                                 h6 { 
-                                    color: #fff;
+                                    color: rgb(225, 255, 255);
                                     padding: 20px;
-                                    font-size: 1rem;
+                                    font-size: 0.85rem;
                                     font-weight: 100;
 
-                                    @media (max-width: 480px) { font-size: 0.9rem !important }
-                                    @media (max-width: 360px) { font-size: 0.7rem !important }
+                                    @media (max-width: 480px) { font-size: 0.75rem !important; padding: 15px !important; }
+                                    @media (max-width: 360px) { font-size: 0.65rem !important }
                                 }
                             }
                         }
@@ -1003,7 +1053,6 @@ body {
 
                             h5 { margin: 5px 0 5px 0}
                             
-                            /* TABLE LIST */
                             table {
                                 width: 100%;
                                 border-collapse: collapse;
@@ -1011,6 +1060,11 @@ body {
                                 tr {
                                     cursor: pointer;
                                     box-shadow: 0 0 3px 0 inset #757575;
+                                    background: linear-gradient(45deg, rgb(196, 200, 255) 20%, #fff 20%);
+                                    
+                                    @media (max-width: 408px) {
+                                        background: linear-gradient(45deg, rgb(196, 200, 255) 30%, #fff 20%);
+                                    }
 
                                     &:hover {
                                         background-color: #fff2aa;
@@ -1022,6 +1076,11 @@ body {
                                         &:hover {
                                             background-color: #ffdfc1;
                                         }
+                                    }
+
+                                    &.disabled { 
+                                        cursor: not-allowed;
+
                                     }
                                 }
 
@@ -1094,16 +1153,16 @@ body {
                             background: linear-gradient(to left, #48c9a2 40%, #1db688);
                             border-radius: 5px;
                             text-align: center;
-                            box-shadow: 0 0 3px 2px rgb(134, 65, 0);
-                            transition: all .3s;
+                            box-shadow: 0 0 2px 1px inset #242424;
                             border: none;
                             cursor: pointer;
                             font-family: 'Press Start 2P', cursive;
         
                             h6 { font-size: 0.65rem }
 
-                            &:hover { background-color: #3eb491; transition: all .3s }
-                            &:active { background-color: #48c9a2; box-shadow: 0 0 3px 3px #242424 inset !important; }
+                            &:active {
+                                box-shadow: 0 0 2px 2px #242424 inset !important; 
+                            }
 
                             &.disabled {
                                 background: linear-gradient(to left, #727272, #727272);
@@ -1235,8 +1294,7 @@ body {
                 }
             }
         }
-
-        // desktops, 992px and up
+        
         @media (min-width: 992px) { 
             display: flex;
             justify-content: space-between;

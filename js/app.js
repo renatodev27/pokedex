@@ -1,6 +1,3 @@
-let synth = window.speechSynthesis;
-const musicBattle = new Audio('./src/pokemon_battle.mp3');
-
 const app = new Vue({
     el: '#app',
     data: {
@@ -27,7 +24,6 @@ const app = new Vue({
         statSpdef: 0,
         pokeSpeed: '',
         statSpeed: 0,
-        pokemonTypes: new Array,
         prev: null,
         next: null,
         playerPokemon: new Object,
@@ -36,14 +32,24 @@ const app = new Vue({
         playerDefense: undefined,
         battleBtn: false,
         captureBtn: false,
+        cancelBtn: false,
+        myPokemsBtn: true,
         battleIntroduction: true,
-        myPokemons: new Array
+        playerPokemonList: [],
+        availablePokemons: [],
+        screenText: '',
+        introduction: true,
+        textIntro: '',
+        musicBattle: new Audio('./src/pokemon_battle.mp3'),
+        synth: window.speechSynthesis
     },
     methods: {
-        getPlayerPokemon() {
-            const url = 'https://pokeapi.co/api/v2/pokemon/pikachu';
+        getPlayerPokemon(pokemonName) {
+            if (this.synth.speaking) this.synth.cancel();
+            const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
             fetch(url).then( response => response.json() )
             .then( (data) => {
+                this.isLoading = true;
                 this.playerPokemon = data;
 
                 this.playerPokemon.moves.map( move => {
@@ -52,8 +58,18 @@ const app = new Vue({
                     move.move.name = finalMoveName;
                 });
 
-                this.getPokemonStats(this.playerPokemon.stats, undefined, false);
-                //console.log(this.playerPokemon);
+                setTimeout(() => {
+                    this.getPokemonStats(this.playerPokemon.stats, undefined, false);
+                    this.functionWelcomeTalk(`Has escogido a ${this.playerPokemon.name} para la batalla.`)
+                    this.screenAction = this.searched ? 'pokemonDetail' : '';
+                    this.myPokemsBtn = true;
+                    this.cancelBtn = false;
+                    if (!this.searched) this.screenOf = true;
+                    if (this.searched) this.battleBtn = true;
+                    if (this.introduction) this.introduction = false;
+                    this.isLoading = false;
+                }, 500)
+                
             })
             .catch( error => console.log(error));
         },
@@ -68,19 +84,26 @@ const app = new Vue({
                 this.next = pokemons.next;
                 
                 pokemons.results.map( (pokemon) => {
-                    const data_url = 'https://pokeapi.co/api/v2/pokemon/'+pokemon.name;
+                    const data_url = `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`;
 
-                    if (pokemon.name === 'charmander') this.myPokemons.push(pokemon);
-
-                    fetch(data_url).then (response => response.json()).then ( (pokedet) => {
-                        this.pokemonList.push(pokedet);
-                        this.listLoading = false;
-                    })
+                    fetch(data_url).then (response => response.json())
+                        .then ( (pokedet) => this.pokemonList.push(pokedet))
                 })
             })
+            .finally( () => this.listLoading = false);
+        },
+        avaliablePokemons() {
+            const availables = ['bulbasaur', 'charmander', 'squirtle', 'pikachu'];
+
+            for (let name of availables) {
+                const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
+                
+                fetch(url).then( response => response.json())
+                .then( (pokemon) => this.availablePokemons.push(pokemon))
+            }
         },
         populateVoiceList() {
-            this.voices = synth.getVoices();
+            this.voices = this.synth.getVoices();
 
             this.voices.map( (voice) => {
                 if (voice.voiceURI === 'Google Español') {
@@ -97,16 +120,19 @@ const app = new Vue({
                 if (this.voices[i].name === this.choosen_voice) utterance.voice = this.voices[i];
             }
 
-            synth.speak(utterance);
+            this.synth.speak(utterance);
             utterance.addEventListener('end', () => {
                 this.speaking = false;
             });
         },
         obtenerPokemon(pokemonName) {
-            const url = 'https://pokeapi.co/api/v2/pokemon/'+pokemonName.toLowerCase();
-            this.returnToTop();
             this.isLoading = true;
-            if (synth.speaking) synth.cancel();
+            this.returnToTop();
+            this.screenAction = 'pokemonDetail';
+            this.searchPokemon = pokemonName;
+            if (this.synth.speaking) this.synth.cancel();
+            
+            const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`;
 
             if (this.searchPokemon !== '') {
                 fetch(url).then( (response) => response.json(), this.screenOf = false)
@@ -126,6 +152,8 @@ const app = new Vue({
                     if (this.searchPokemon != '') this.searchPokemon = '';
                     this.searched = true;
                     this.battleBtn = true;
+                    if (this.cancelBtn) this.cancelBtn = false;
+                    if (!this.myPokemsBtn) this.myPokemsBtn = true;
                     this.isLoading = false;
                 })
                 .catch( (error) => {
@@ -144,22 +172,28 @@ const app = new Vue({
         },
         pokemonBattle() {
             window.scrollTo({top: 0, behavior: 'smooth'});
-            if (synth.speaking) synth.cancel();
+            if (this.synth.speaking) this.synth.cancel();
             this.isLoading = true;
             this.listLoading = true;
             this.battleBtn = false;
+            this.myPokemsBtn = false;
+            this.cancelBtn = true;
             this.captureBtn = true;
-            musicBattle.play();
+            if (this.musicBattle === null) this.musicBattle = new Audio('./src/pokemon_battle.mp3'); 
+            this.musicBattle.play();
 
             setTimeout( () => {
                 this.isLoading = false;
                 this.listLoading = false;
                 this.screenAction = 'Battle';
-
+                
                 if (this.battleIntroduction) {
                     this.functionWelcomeTalk('Has entrado en una batalla pokemon');
-                    this.functionWelcomeTalk('Para realizar un ataque selecciona una de las opciones de ataque de tu pokemon');
+                    this.functionWelcomeTalk(`Para realizar un ataque selecciona una de las opciones de ataque de ${this.playerPokemon.name}`);
                 }
+                
+                this.writeTextEffect(`¿Qué quieres que ${this.playerPokemon.name.toUpperCase()} haga?`)
+                
             }, 800);
 
             const height = document.body.scrollHeight;
@@ -169,9 +203,13 @@ const app = new Vue({
                 this.battleIntroduction = false;
             }, 5000)
         },
-        choosePokemon(data = []) {
-            this.returnToTop();
-            this.searchPokemon = data['name'];
+        writeTextEffect(text) {
+            if (this.screenText.length) this.screenText = '';
+            for (let i = 0; i < text.length; i++) {
+                setTimeout( () => this.screenText += text.charAt(i), 50 * i)
+            }
+        },
+        selectEnemyPokemon(data = []) {
             this.obtenerPokemon(data['name']);
         },
         getPokemonStats(listStats, pokeName, speak = true) {
@@ -216,16 +254,20 @@ const app = new Vue({
             if (speak) this.functionWelcomeTalk(` Has encontrado un ${pokeName}. ${hpText} ${attackText} y ${defenseText}. 
             ¿Quieres capturarlo?`);
         },
-        getPokemonsTypes() {
-            const url = 'https://pokeapi.co/api/v2/type';
+        getMyPokemons() {
+            this.isLoading = true;
+            this.screenOf = false;
+            this.myPokemsBtn = false;
+            this.cancelBtn = true;
+            if (this.battleBtn) this.battleBtn = false;
 
-            fetch(url).then ( (response) => response.json())
-            .then ( (data) => {
-                this.pokemonTypes = data.results;
-            })
+            setTimeout( () => {
+                this.screenAction = 'MyPokemons';
+                this.isLoading = false;
+            }, 500)
         },
         returnToPokemonList() {
-            if (synth.speaking) synth.cancel();
+            if (this.synth.speaking) this.synth.cancel();
             this.screenOf = true;
             this.searched = false;
             this.pokemon = [];
@@ -233,11 +275,16 @@ const app = new Vue({
             this.battleBtn = false;
         },
         cancelar() {
-            this.screenAction = undefined;
-            this.battleBtn = true;
+            if (this.synth.speaking) this.synth.cancel();
+            this.screenAction = this.searched ? 'pokemonDetail' : undefined;
+            this.battleBtn = this.searched ? true : false;
+            if (!this.searched) this.screenOf = true;
+            this.cancelBtn = false;
+            this.myPokemsBtn = true;
             this.captureBtn = false;
-            musicBattle.pause();
-            musicBattle.currentTime = 0;
+
+            this.musicBattle.pause();
+            this.musicBattle.currentTime = 0;
         },
         nextPrevPokemonList(action) {
             switch (action) {
@@ -276,8 +323,27 @@ const app = new Vue({
         returnToTop() {
             if (screen.width < 992) window.scrollTo({top: 0, behavior: 'smooth'});
         },
-        onWelcome() {
-            this.functionWelcomeTalk("Hi trainer. I'm pokédex N 782. To begin; please select a pokemon from the list");
+        pokedexIntroduction() {
+            const height = document.body.scrollHeight;
+            
+            if (this.introduction) {
+                this.isLoading = true;
+                this.screenOf = false;
+                const txt = 'Hola entrenador! Soy tu pokedex N° 782. Antes de empezar, por favor elige tu pokemón para batallar.';
+                const talkText = 'Hola entrenador! Soy tu pokedex número 782. Antes de empezar, por favor elige tu pokemón para batallar.';
+    
+                setTimeout( () => {
+                    this.functionWelcomeTalk(talkText);
+                    this.screenAction = 'MyPokemons';
+                    this.myPokemsBtn = false;
+                    this.isLoading = false;
+                    if (screen.width < 992) window.scrollTo({top: height, behavior: 'smooth'});
+
+                    for (let i in txt) {
+                        setTimeout(() => this.textIntro += txt.charAt(i), 90 * i)
+                    }
+                }, 500)
+            }
         },
         maximize() {
             let elem = document.documentElement;
@@ -287,18 +353,20 @@ const app = new Vue({
             else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
         }
     },
+    updated() {
+        if (window.undefined) musicBattle.pause();
+    },
     created() {
-        this.getPokemonsTypes();
         this.listarPokemones();
-        this.getPlayerPokemon();
+        this.avaliablePokemons();
+        this.pokedexIntroduction();
     },
     beforeMount() {
-        if (synth.onvoiceschanged !== undefined) {
-            synth.onvoiceschanged = () => this.populateVoiceList();
+        if (this.synth.onvoiceschanged !== undefined) {
+            this.synth.onvoiceschanged = () => this.populateVoiceList();
         }
     },
     mounted() {
-        //this.onWelcome();
     }
 })
 

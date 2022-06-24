@@ -46,9 +46,19 @@
                                 </div>
                             </div>
                             <div v-else>
+                                <div v-if="screenAction == 'MyPokemons'" class="my-pokemons-screen-content">
+                                    <ul class="my-pokemons-list">
+                                        <li class="" v-for="poke in availablePokemons">
+                                            <button @click="getPlayerPokemon(poke.name)">
+                                                <img :src="poke.sprites.front_default" class="pokemon-table-img">
+                                                <h6 v-text="poke.name.toUpperCase()"></h6>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <div v-if="pokemon.length < 1"></div>
                                 <div v-else>
-                                    <div v-if="screenAction == 'Battle'" class="battle-screen-container">
+                                    <div v-if="screenAction == 'Battle'" class="battle-screen-content">
                                         <div class="enemy-content">
                                             <div class="pokemon-stats">
                                                 <div class="info">
@@ -87,7 +97,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div v-else>
+                                    <div v-if="screenAction == 'pokemonDetail'">
                                         <div class="principal-pokemon-img-container">
                                             <img :src="pokemon.sprites.front_default" class="screen-pokemon-img">
                                         </div>
@@ -123,23 +133,20 @@
                         </div>
                         
                         <div class="buttons-content">
-                            <div class="flex-buttons">
-                                <button class="btn-battle disabled" v-show="!battleBtn && !captureBtn">
-                                    <h6>BATALLA</h6>
-                                </button>
-                                <button class="btn-battle" v-show="battleBtn" :class="!battleBtn && !captureBtn || isLoading ? 'disabled' : ''" @click="pokemonBattle()">
-                                    <h6>BATALLA</h6>
-                                </button>
-                                <button class="btn-capture" v-show="captureBtn" :class="!battleBtn && !captureBtn || isLoading ? 'disabled' : ''">
-                                    <h6>CAPTURAR</h6>
-                                </button>
-                                <button class="btn-my-pokemons" :class="captureBtn ? 'disabled' : ''">
-                                    <h6>MIS POKEMONES</h6>
-                                </button>
-                            </div>
-                            <button class="btn-cancel" :class="screenAction === undefined ? 'disabled' : ''" @click="cancelar()">
-                                <h6>CANCELAR</h6>
-                            </button>
+                            <ul class="flex-buttons">
+                               <li>
+                                    <button class="btn-battle" :class="!battleBtn || isLoading ? 'disabled' : ''" @click="!battleBtn || isLoading ? '' : pokemonBattle()">BATALLA</button>
+                               </li> 
+                               <li>
+                                    <button class="btn-my-pokemons" :class="!myPokemsBtn || isLoading ? 'disabled' : ''" @click="!myPokemsBtn || isLoading ? '' : getMyPokemons()">MIS POKEMONES</button>
+                               </li> 
+                               <li>
+                                    <button class="btn-capture" :class="!captureBtn || isLoading ? 'disabled' : ''">CAPTURAR</button>
+                               </li> 
+                               <li>
+                                    <button class="btn-cancel" :class="!cancelBtn || isLoading ? 'disabled' : ''" @click="!cancelBtn || isLoading ? '' : cancelar()">CANCELAR</button>
+                               </li> 
+                            </ul>
                         </div>
 
                         <div class="arrows-content">
@@ -154,7 +161,8 @@
                         </div>
                     </div>
 
-                    <input type="text" placeholder="Buscar pokemon" @keyup.enter="obtenerPokemon(searchPokemon, false)" class="input-container" v-model="searchPokemon">
+                    <input type="text" placeholder="Buscar pokemon" :disabled="screenAction === 'Battle'"
+                    @keyup.enter="obtenerPokemon(searchPokemon, false)" class="input-container" v-model="searchPokemon">
                 </div>
             </div>
             <div class="pokedex-tube-desktop">
@@ -188,7 +196,7 @@
                     </div>
                     <div class="rs-screen">
                         <div class="inner-screen">
-                            <div v-if="listLoading">
+                            <div v-if="listLoading || isLoading">
                                 <div class="item">
                                     <div class="parent ball"></div>
                                     <div class="parent half-ball"></div>
@@ -198,148 +206,148 @@
                                 </div>
                             </div>
                             <div v-else>
-                                <div v-if="screenAction === 'Battle'" class="battle-screen">
-                                    <div class="options-bckg">
+                                <div v-if="introduction" class="textIntro">
+                                    <p v-text="textIntro"></p>
+                                </div>
+                                <div v-else>
+                                    <div v-if="screenAction === 'Battle'" class="battle-screen">
                                         <div class="options-content">
                                             <ul class="options">
                                                 <li v-for="(move, index) in playerPokemon.moves" :key="index">
-                                                    <button>
-                                                        <h6 v-text="move.move.name"></h6>
-                                                    </button> 
-                                                    <div class="line-break" v-if="index == 25"></div>
+                                                    <button> <h6 v-text="move.move.name"></h6> </button> 
                                                 </li>
                                             </ul>
                                         </div>
+                                        <div class="questions-text-content">
+                                            <h6 v-text="screenText"></h6>
+                                        </div>
                                     </div>
-                                    <div class="questions-text-content">
-                                        <h6 v-text="`What will ${playerPokemon.name.toUpperCase()} do?`"></h6>
-                                    </div>
-                                </div>
-                                <div v-else>
-                                    <div v-if="searched" class="pokemon-stats">
-                                        <h5 align="center">STATS</h5>
-                                        <div class="hp-text-content">
-                                            <div v-text="pokeHp"></div>
-                                            <div>
-                                                <span v-text="statHp"></span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" style="margin-top: -5px"
+                                    <div v-else>
+                                        <div v-if="searched" class="pokemon-stats">
+                                            <h5 align="center">STATS</h5>
+                                            <div class="hp-text-content">
+                                                <div v-text="pokeHp"></div>
+                                                <div>
+                                                    <span v-text="statHp"></span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" style="margin-top: -5px"
+                                                        width="16" height="16"
+                                                        viewBox="0 0 172 172"
+                                                        style=" fill:#000000;">
+                                                        <g transform="">
+                                                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                                                <path d="M0,172v-172h172v172z" fill="none"></path>
+                                                                <path d="" fill="none"></path>
+                                                                <path d="" fill="none"></path>
+                                                                <g fill="#e74c3c">
+                                                                    <path d="M28.66667,21.5c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h0.014l-0.014,0.014v-0.014h-7.16667c-1.978,
+                                                                    0 -3.58333,1.60533 -3.58333,3.58333v7.16667h0.06299l-0.06299,0.06299v-0.06299h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,
+                                                                    3.58333v32.25c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,
+                                                                    3.58333h7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v7.16667c0,
+                                                                    1.978 1.60533,3.58333 3.58333,3.58333h7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v7.16667c0,1.978 1.60533,
+                                                                    3.58333 3.58333,3.58333h7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h3.58333c1.978,0 3.58333,-1.60533 3.58333,
+                                                                    -3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,
+                                                                    -3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,
+                                                                    -3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,
+                                                                    -3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-32.25c0,-1.978 -1.60533,-3.58333 -3.58333,
+                                                                    -3.58333h-7.13167l-0.03499,-0.03499v-7.13167c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.01969l-0.14697,-0.14697v-7.01969c0,
+                                                                    -1.978 -1.60533,-3.58333 -3.58333,-3.58333h-35.83333c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h0.05599l-0.05599,
+                                                                    0.05599v-0.05599h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.14567l-0.02099,0.02099h-10.72201h-0.007v-0.007v-7.15967c0,
+                                                                    -1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.16667v0.08398l-0.08399,-0.08398h0.08399v-7.16667c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333z"></path>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="pokemon-hp-bar"></div>
+                                            <div class="attack-text-content">
+                                                <div v-text="pokeAttack"></div>
+                                                <div>
+                                                    <span v-text="statAttack"></span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 172 172" style=" fill:#000000;">
+                                                        <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                                            <path d="M0,172v-172h172v172z" fill="none"></path>
+                                                            <g fill="#1abc9c">
+                                                                <path d="M150.5,17.91667h-25.08333c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-10.75v-7.16667c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.16667v-7.16667c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v10.75v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v10.75h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-10.75h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v6.966v0.20067v10.75v3.58333v3.58333c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667h10.75h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667v-10.75h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h10.75v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h17.91667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667v-7.16667c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.16667v-7.16667c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.16667v-10.75h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-25.08333c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333z"></path>
+                                                            </g>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="pokemon-hp-bar"></div>
+                                            <div class="attack-text-content">
+                                                <div v-text="pokeDefense"></div>
+                                                <div>
+                                                    <span v-text="statDefense"></span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                                    width="15" height="15"
+                                                    viewBox="0 0 172 172"
+                                                    style=" fill:#000000;">
+                                                        <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                                            <path d="M0,172v-172h172v172z" fill="none"></path>
+                                                            <g fill="#884217">
+                                                                <path d="M40.13333,17.2c-6.33533,0 -11.46667,5.13133 -11.46667,11.46667v17.2h-5.73333c-3.1648,0 -5.73333,2.56853 -5.73333,5.73333v11.46667c0,3.1648 2.56853,5.73333 5.73333,5.73333h5.73333v28.66667c0,31.6652 25.66813,57.33333 57.33333,57.33333c31.6652,0 57.33333,-25.66813 57.33333,-57.33333v-28.66667h5.73333c3.1648,0 5.73333,-2.56853 5.73333,-5.73333v-11.46667c0,-3.1648 -2.56853,-5.73333 -5.73333,-5.73333h-5.73333v-17.2c0,-6.33533 -5.13133,-11.46667 -11.46667,-11.46667zM45.86667,63.06667c3.17053,0 5.73333,2.5628 5.73333,5.73333v5.73333c0,3.17053 -2.5628,5.73333 -5.73333,5.73333c-3.17053,0 -5.73333,-2.5628 -5.73333,-5.73333v-5.73333c0,-3.17053 2.5628,-5.73333 5.73333,-5.73333zM45.86667,91.73333c3.17053,0 5.73333,2.5628 5.73333,5.73333c0,18.9716 15.4284,34.4 34.4,34.4c3.17053,0 5.73333,2.5628 5.73333,5.73333c0,3.17053 -2.5628,5.73333 -5.73333,5.73333c-25.28973,0 -45.86667,-20.57693 -45.86667,-45.86667c0,-3.17053 2.5628,-5.73333 5.73333,-5.73333z"></path>
+                                                            </g>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="pokemon-hp-bar"></div>
+                                            <div class="attack-text-content">
+                                                <div v-text="pokeSpeed"></div>
+                                                <div>
+                                                    <span v-text="statSpeed"></span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                                     width="16" height="16"
                                                     viewBox="0 0 172 172"
                                                     style=" fill:#000000;">
-                                                    <g transform="">
                                                         <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                                                             <path d="M0,172v-172h172v172z" fill="none"></path>
-                                                            <path d="" fill="none"></path>
-                                                            <path d="" fill="none"></path>
-                                                            <g fill="#e74c3c">
-                                                                <path d="M28.66667,21.5c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h0.014l-0.014,0.014v-0.014h-7.16667c-1.978,
-                                                                0 -3.58333,1.60533 -3.58333,3.58333v7.16667h0.06299l-0.06299,0.06299v-0.06299h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,
-                                                                3.58333v32.25c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,
-                                                                3.58333h7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v7.16667c0,
-                                                                1.978 1.60533,3.58333 3.58333,3.58333h7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v7.16667c0,1.978 1.60533,
-                                                                3.58333 3.58333,3.58333h7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h3.58333c1.978,0 3.58333,-1.60533 3.58333,
-                                                                -3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,
-                                                                -3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,
-                                                                -3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,
-                                                                -3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-32.25c0,-1.978 -1.60533,-3.58333 -3.58333,
-                                                                -3.58333h-7.13167l-0.03499,-0.03499v-7.13167c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.01969l-0.14697,-0.14697v-7.01969c0,
-                                                                -1.978 -1.60533,-3.58333 -3.58333,-3.58333h-35.83333c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h0.05599l-0.05599,
-                                                                0.05599v-0.05599h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.14567l-0.02099,0.02099h-10.72201h-0.007v-0.007v-7.15967c0,
-                                                                -1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.16667v0.08398l-0.08399,-0.08398h0.08399v-7.16667c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333z"></path>
+                                                            <g fill="#34495e">
+                                                                <path d="M80.59001,28.66667c-0.92332,0.00571 -1.82961,0.24915 -2.63151,0.70687l-25.08333,14.33333c-2.57814,1.47267 -3.4743,4.7565 -2.00162,7.33464c1.47267,2.57814 4.7565,3.4743 7.33464,2.00162l21.59098,-12.3387l9.78418,13.04557l-25.22331,19.98128c-4.18912,2.50173 -7.02669,7.03361 -7.02669,12.26172c0,3.68565 1.43324,7.01279 3.71631,9.55322l-0.03499,0.04199l0.37793,0.37793c0.10277,0.10605 0.20897,0.20511 0.31494,0.30794l15.6001,15.5511l-26.01416,2.86247l0.05599,0.007c-2.85558,0.29681 -4.97392,2.78517 -4.81114,5.65151c0.16278,2.86634 2.54921,5.09888 5.42003,5.0705h43c1.913,-0.00025 3.68174,-1.01714 4.64448,-2.67023c0.96274,-1.65309 0.97442,-3.69327 0.03066,-5.35727l-14.10937,-24.90137l21.82194,-14.87223l11.77881,16.81087l0.014,-0.09798c0.9932,1.51004 2.67877,2.41987 4.48616,2.42155h25.08333c1.93842,0.02741 3.74144,-0.99102 4.71865,-2.66532c0.97721,-1.6743 0.97721,-3.74507 0,-5.41937c-0.97721,-1.6743 -2.78023,-2.69273 -4.71865,-2.66532h-21.71696l-13.73844,-28.37972c-0.0686,-0.14084 -0.14332,-0.27861 -0.22396,-0.41292c-1.58062,-2.64842 -3.75324,-4.72038 -6.62077,-7.5166c-2.86753,-2.79623 -6.28623,-5.9029 -9.58822,-8.82536c-6.60397,-5.84492 -12.75863,-10.95996 -12.75863,-10.95996c-0.97498,-0.80911 -2.20441,-1.24784 -3.47135,-1.23877zM128.993,28.66667c-7.912,0 -14.32634,6.4215 -14.32634,14.32634c0,7.91917 6.41434,14.34033 14.32634,14.34033c7.92992,0 14.34033,-6.42116 14.34033,-14.34033c0,-7.90483 -6.41041,-14.32634 -14.34033,-14.32634zM25.08333,60.91667c-1.29228,-0.01828 -2.49429,0.66068 -3.14576,1.77688c-0.65147,1.1162 -0.65147,2.49671 0,3.61291c0.65147,1.1162 1.85349,1.79515 3.14576,1.77688h25.08333c1.29228,0.01828 2.49429,-0.66068 3.14576,-1.77688c0.65147,-1.1162 0.65147,-2.49671 0,-3.61291c-0.65147,-1.1162 -1.85349,-1.79515 -3.14576,-1.77688zM14.33333,78.83333c-1.29228,-0.01828 -2.49429,0.66068 -3.14576,1.77688c-0.65147,1.1162 -0.65147,2.49671 0,3.61291c0.65147,1.1162 1.85349,1.79515 3.14576,1.77688h25.08333c1.29228,0.01828 2.49429,-0.66068 3.14576,-1.77688c0.65147,-1.1162 0.65147,-2.49671 0,-3.61291c-0.65147,-1.1162 -1.85349,-1.79515 -3.14576,-1.77688zM17.91667,96.75c-1.29228,-0.01828 -2.49429,0.66068 -3.14576,1.77688c-0.65147,1.1162 -0.65147,2.49671 0,3.61291c0.65147,1.1162 1.85349,1.79515 3.14576,1.77688h25.08333c1.29228,0.01828 2.49429,-0.66068 3.14576,-1.77688c0.65147,-1.1162 0.65147,-2.49671 0,-3.61291c-0.65147,-1.1162 -1.85349,-1.79515 -3.14576,-1.77688zM73.1154,132.59033l-7.09668,12.29671l-0.44092,0.59489c-1.78092,2.37575 -1.30137,5.74968 1.0708,7.5306c0.9675,0.72383 2.09424,1.0778 3.2194,1.0778c1.634,0 3.24712,-0.74735 4.3042,-2.1556l14.5153,-19.3444z"></path>
                                                             </g>
                                                         </g>
-                                                    </g>
-                                                </svg>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="pokemon-hp-bar"></div>
+                                            <div class="type-text-content">
+                                                <div v-for="type in pokemon.types">
+                                                    <li class="pokemon-type-badge" :style="'background-color: ' + type.type.color" v-text="type.type.name.charAt(0).toUpperCase() + type.type.name.substr(1)"></li>
+                                                </div>
+                                            </div>
+                                            <div class="ability-text-content">
+                                                <div>
+                                                    <span>Abilities</span>
+                                                </div>
+                                                <div>
+                                                    <ul v-for="abil in pokemon.abilities" class="abilities-list">
+                                                        <li class="pokemon-ability-badge" v-text="abil.ability.name.charAt(0).toUpperCase() + abil.ability.name.substr(1)"></li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="pokemon-hp-bar"></div>
-                                        <div class="attack-text-content">
-                                            <div v-text="pokeAttack"></div>
-                                            <div>
-                                                <span v-text="statAttack"></span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 172 172" style=" fill:#000000;">
-                                                    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                                                        <path d="M0,172v-172h172v172z" fill="none"></path>
-                                                        <g fill="#1abc9c">
-                                                            <path d="M150.5,17.91667h-25.08333c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-10.75v-7.16667c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.16667v-7.16667c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.16667h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v10.75v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667v10.75h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v7.16667h-10.75h-7.16667c-1.978,0 -3.58333,1.60533 -3.58333,3.58333v6.966v0.20067v10.75v3.58333v3.58333c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667h10.75h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667v-10.75h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h10.75v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h17.91667v7.16667c0,1.978 1.60533,3.58333 3.58333,3.58333h7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667v-7.16667c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.16667v-7.16667c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333h-7.16667v-10.75h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-7.16667h7.16667c1.978,0 3.58333,-1.60533 3.58333,-3.58333v-25.08333c0,-1.978 -1.60533,-3.58333 -3.58333,-3.58333z"></path>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                            </div>
+                                        <div v-else class="pokemons-list">
+                                            <table class="table">
+                                                <tr v-for="poke in pokemonList" @click="selectEnemyPokemon(poke)">
+                                                    <td align="center">
+                                                        <img :src="poke.sprites.front_default" class="pokemon-table-img">
+                                                    </td>
+                                                    <td align="center">
+                                                        <span v-text="poke.name.toUpperCase()"></span>
+                                                    </td>
+                                                    <td align="center">
+                                                        <span v-text="poke.base_experience + 'exp'"></span>
+                                                    </td>
+                                                    <td align="center" class="mobile">
+                                                        <span v-text="poke.height + 'cm'"></span>
+                                                    </td>
+                                                    <td align="center" class="mobile">
+                                                        <span v-text="poke.weight + 'kg'"></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </div>
-                                        <div class="pokemon-hp-bar"></div>
-                                        <div class="attack-text-content">
-                                            <div v-text="pokeDefense"></div>
-                                            <div>
-                                                <span v-text="statDefense"></span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                                                width="15" height="15"
-                                                viewBox="0 0 172 172"
-                                                style=" fill:#000000;">
-                                                    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                                                        <path d="M0,172v-172h172v172z" fill="none"></path>
-                                                        <g fill="#884217">
-                                                            <path d="M40.13333,17.2c-6.33533,0 -11.46667,5.13133 -11.46667,11.46667v17.2h-5.73333c-3.1648,0 -5.73333,2.56853 -5.73333,5.73333v11.46667c0,3.1648 2.56853,5.73333 5.73333,5.73333h5.73333v28.66667c0,31.6652 25.66813,57.33333 57.33333,57.33333c31.6652,0 57.33333,-25.66813 57.33333,-57.33333v-28.66667h5.73333c3.1648,0 5.73333,-2.56853 5.73333,-5.73333v-11.46667c0,-3.1648 -2.56853,-5.73333 -5.73333,-5.73333h-5.73333v-17.2c0,-6.33533 -5.13133,-11.46667 -11.46667,-11.46667zM45.86667,63.06667c3.17053,0 5.73333,2.5628 5.73333,5.73333v5.73333c0,3.17053 -2.5628,5.73333 -5.73333,5.73333c-3.17053,0 -5.73333,-2.5628 -5.73333,-5.73333v-5.73333c0,-3.17053 2.5628,-5.73333 5.73333,-5.73333zM45.86667,91.73333c3.17053,0 5.73333,2.5628 5.73333,5.73333c0,18.9716 15.4284,34.4 34.4,34.4c3.17053,0 5.73333,2.5628 5.73333,5.73333c0,3.17053 -2.5628,5.73333 -5.73333,5.73333c-25.28973,0 -45.86667,-20.57693 -45.86667,-45.86667c0,-3.17053 2.5628,-5.73333 5.73333,-5.73333z"></path>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <div class="pokemon-hp-bar"></div>
-                                        <div class="attack-text-content">
-                                            <div v-text="pokeSpeed"></div>
-                                            <div>
-                                                <span v-text="statSpeed"></span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                                                width="16" height="16"
-                                                viewBox="0 0 172 172"
-                                                style=" fill:#000000;">
-                                                    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                                                        <path d="M0,172v-172h172v172z" fill="none"></path>
-                                                        <g fill="#34495e">
-                                                            <path d="M80.59001,28.66667c-0.92332,0.00571 -1.82961,0.24915 -2.63151,0.70687l-25.08333,14.33333c-2.57814,1.47267 -3.4743,4.7565 -2.00162,7.33464c1.47267,2.57814 4.7565,3.4743 7.33464,2.00162l21.59098,-12.3387l9.78418,13.04557l-25.22331,19.98128c-4.18912,2.50173 -7.02669,7.03361 -7.02669,12.26172c0,3.68565 1.43324,7.01279 3.71631,9.55322l-0.03499,0.04199l0.37793,0.37793c0.10277,0.10605 0.20897,0.20511 0.31494,0.30794l15.6001,15.5511l-26.01416,2.86247l0.05599,0.007c-2.85558,0.29681 -4.97392,2.78517 -4.81114,5.65151c0.16278,2.86634 2.54921,5.09888 5.42003,5.0705h43c1.913,-0.00025 3.68174,-1.01714 4.64448,-2.67023c0.96274,-1.65309 0.97442,-3.69327 0.03066,-5.35727l-14.10937,-24.90137l21.82194,-14.87223l11.77881,16.81087l0.014,-0.09798c0.9932,1.51004 2.67877,2.41987 4.48616,2.42155h25.08333c1.93842,0.02741 3.74144,-0.99102 4.71865,-2.66532c0.97721,-1.6743 0.97721,-3.74507 0,-5.41937c-0.97721,-1.6743 -2.78023,-2.69273 -4.71865,-2.66532h-21.71696l-13.73844,-28.37972c-0.0686,-0.14084 -0.14332,-0.27861 -0.22396,-0.41292c-1.58062,-2.64842 -3.75324,-4.72038 -6.62077,-7.5166c-2.86753,-2.79623 -6.28623,-5.9029 -9.58822,-8.82536c-6.60397,-5.84492 -12.75863,-10.95996 -12.75863,-10.95996c-0.97498,-0.80911 -2.20441,-1.24784 -3.47135,-1.23877zM128.993,28.66667c-7.912,0 -14.32634,6.4215 -14.32634,14.32634c0,7.91917 6.41434,14.34033 14.32634,14.34033c7.92992,0 14.34033,-6.42116 14.34033,-14.34033c0,-7.90483 -6.41041,-14.32634 -14.34033,-14.32634zM25.08333,60.91667c-1.29228,-0.01828 -2.49429,0.66068 -3.14576,1.77688c-0.65147,1.1162 -0.65147,2.49671 0,3.61291c0.65147,1.1162 1.85349,1.79515 3.14576,1.77688h25.08333c1.29228,0.01828 2.49429,-0.66068 3.14576,-1.77688c0.65147,-1.1162 0.65147,-2.49671 0,-3.61291c-0.65147,-1.1162 -1.85349,-1.79515 -3.14576,-1.77688zM14.33333,78.83333c-1.29228,-0.01828 -2.49429,0.66068 -3.14576,1.77688c-0.65147,1.1162 -0.65147,2.49671 0,3.61291c0.65147,1.1162 1.85349,1.79515 3.14576,1.77688h25.08333c1.29228,0.01828 2.49429,-0.66068 3.14576,-1.77688c0.65147,-1.1162 0.65147,-2.49671 0,-3.61291c-0.65147,-1.1162 -1.85349,-1.79515 -3.14576,-1.77688zM17.91667,96.75c-1.29228,-0.01828 -2.49429,0.66068 -3.14576,1.77688c-0.65147,1.1162 -0.65147,2.49671 0,3.61291c0.65147,1.1162 1.85349,1.79515 3.14576,1.77688h25.08333c1.29228,0.01828 2.49429,-0.66068 3.14576,-1.77688c0.65147,-1.1162 0.65147,-2.49671 0,-3.61291c-0.65147,-1.1162 -1.85349,-1.79515 -3.14576,-1.77688zM73.1154,132.59033l-7.09668,12.29671l-0.44092,0.59489c-1.78092,2.37575 -1.30137,5.74968 1.0708,7.5306c0.9675,0.72383 2.09424,1.0778 3.2194,1.0778c1.634,0 3.24712,-0.74735 4.3042,-2.1556l14.5153,-19.3444z"></path>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <div class="pokemon-hp-bar"></div>
-                                        <div class="type-text-content">
-                                            <div v-for="type in pokemon.types">
-                                                <li class="pokemon-type-badge" :style="'background-color: ' + type.type.color" v-text="type.type.name.charAt(0).toUpperCase() + type.type.name.substr(1)"></li>
-                                            </div>
-                                        </div>
-                                        <div class="ability-text-content">
-                                            <div>
-                                                <span>Abilities</span>
-                                            </div>
-                                            <div>
-                                                <ul v-for="abil in pokemon.abilities" class="abilities-list">
-                                                    <li class="pokemon-ability-badge" v-text="abil.ability.name.charAt(0).toUpperCase() + abil.ability.name.substr(1)"></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div v-else class="pokemons-list">
-                                        <table class="table">
-                                            <tr v-for="poke in pokemonList" @click="choosePokemon(poke)">
-                                                <td align="center">
-                                                    <img :src="poke.sprites.front_default" class="pokemon-table-img">
-                                                </td>
-                                                <td align="center">
-                                                    <span v-text="poke.name.toUpperCase()"></span>
-                                                </td>
-                                                <td align="center">
-                                                    <span v-text="poke.base_experience + 'exp'"></span>
-                                                </td>
-                                                <td align="center" class="mobile">
-                                                    <span v-text="poke.height + 'cm'"></span>
-                                                </td>
-                                                <td align="center" class="mobile">
-                                                    <span v-text="poke.weight + 'kg'"></span>
-                                                </td>
-                                            </tr>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
